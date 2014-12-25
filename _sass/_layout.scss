@@ -84,8 +84,6 @@
     }
 }
 
-
-
 /**
  * Site footer
  */
@@ -131,6 +129,7 @@
 .footer-col-3 {
     width: -webkit-calc(45% - (#{$spacing-unit} / 2));
     width:         calc(45% - (#{$spacing-unit} / 2));
+    text-align: right;
 }
 
 @include media-query($on-laptop) {
@@ -153,8 +152,6 @@
         width:         calc(100% - (#{$spacing-unit} / 2));
     }
 }
-
-
 
 /**
  * Page content
@@ -185,8 +182,6 @@
     display: block;
     font-size: 24px;
 }
-
-
 
 /**
  * Posts
