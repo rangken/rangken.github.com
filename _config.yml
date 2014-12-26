@@ -2,16 +2,16 @@
 title: ANDRASKINDLER
 email: andraskindler@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Posts about development, mostly focused Android.
+  Posts about development, mostly focused on Android.
 
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: ""
 permalink: '/blog/:year/:title/'
 paginate_path: '/blog/page:num/'
 paginate: 8
 relative_permalinks: false
 excerpt_separator: "<!-- more -->"
 
-url: "http://andraskindler.com" # the base hostname & protocol for your site
+url: "http://andraskindler.com"
 twitter_username: andraskindler
 github_username: andraskindler
 name: Andras Kindler
