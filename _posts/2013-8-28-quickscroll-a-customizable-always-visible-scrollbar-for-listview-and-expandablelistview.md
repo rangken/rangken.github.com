@@ -4,7 +4,7 @@ title:  "QuickScroll: a customizable, always visible scrollbar for ListView and 
 date:   2013-8-28 09:30:00
 categories: android
 tags: QuickScroll ListView ExpandableListView
-redirect_from: "http://andraskindler.com/2013/08/28/quickscroll-a-customizable-always-visible-scrollbar-for-listview-and-expandablelistview/"
+redirect_from: "/2013/08/28/quickscroll-a-customizable-always-visible-scrollbar-for-listview-and-expandablelistview/"
 ---
 Recently I had to create an app with a ListView and an always visible, customized scrollbar at the right side. The look and feel had to be similar to the native fastscroll of the ListView, with a handle and an indicator displaying the initials of the current content. So I created a View which is easy to reuse, and now I decided to make it available for everyone on Github.
 
