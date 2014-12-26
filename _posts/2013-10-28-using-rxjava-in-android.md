@@ -4,6 +4,7 @@ title:  "Using RxJava with Android"
 date:   2013-10-28 10:22:27
 categories: android
 tags: RxJava 
+redirect_from: "/2013/10/28/using-rxjava-in-android/"
 ---
 This post is the first in a series about RxJava and Android. This tutorial will show you how to build a REST API client in Android with RxJava observables (and based on Square's Retrofit).
 

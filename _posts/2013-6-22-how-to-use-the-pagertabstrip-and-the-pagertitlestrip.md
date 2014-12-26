@@ -4,6 +4,7 @@ title:  "How to use the PagerTabStrip and the PagerTitleStrip"
 date:   2013-06-22 11:00:00
 categories: android
 tags: PagerTabStrip PagerTitleStrip ViewPager 
+redirect_from: "http://andraskindler.com/2013/06/22/how-to-use-the-pagertabstrip-and-the-pagertitlestrip"
 ---
 The ViewPager is one of the best and most versatile part of the Android UI, it enables the developer/designer to show more content on a small screen than possible. The user can swipe between pages, but it is important that the app shows some hints for a proper user experience. Can I swipe some more or is it the last page? What awaits on the previous and next pages?
 <!-- more -->

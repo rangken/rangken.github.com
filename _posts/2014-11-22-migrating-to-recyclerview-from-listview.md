@@ -4,6 +4,7 @@ title:  "Migrating to RecyclerView from ListView"
 date:   2014-11-22 12:00:00
 categories: android
 tags: RecyclerView LayoutManager
+redirect_from: "/2014/11/22/migrating-to-recyclerview/"
 ---
 Google introduced [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html) as a part of the support library as the next-gen ListView. It's new, efficient and highly customisable, no wonder everyone wants to make the switch. This step-by-step guide will show you how to migrate from an existing ListView (or GridView / StaggeredGridView / ExpandableListView), replacing the implementation with a RecyclerView.
 <!-- more -->

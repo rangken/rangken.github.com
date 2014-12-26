@@ -4,6 +4,7 @@ title:  "Creating a fullscreen DialogFragment with a custom background"
 date:   2013-08-16 09:30:00
 categories: android
 tags: DialogFragment
+redirect_from: "/2013/08/16/creating-a-fullscreen-dialogfragment-with-a-custom-background/"
 ---
 The default Dialogs (or rather the [DialogFragments](http://developer.android.com/reference/android/app/DialogFragment.html)) look pretty good in Android since Honeycomb, but the default look-and-feel doesn't go well together with all app designs. Not to mention sometimes you need a fully different layout, a custom background color, or a semitransparent background with no grey dimming at all. We're talking about Android, where (almost) everything is possible, so there is a solution for this problem as well.
 <!-- more -->

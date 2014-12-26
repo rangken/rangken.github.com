@@ -4,6 +4,7 @@ title:  "RxJava and Android: working with subjects"
 date:   2013-12-23 15:30:00
 categories: android
 tags: RxJava Subject
+redirect_from: "/2013/12/23/rxjava-and-android-working-with-subjects/"
 ---
 RxJava's observers and observables offer a great way to manage multiple threads and async processes in Android development. Besides these, the library also offers subjects, which are perfect for long running async processes with periodic updates, consumed by multiple observers.
 <!-- more -->

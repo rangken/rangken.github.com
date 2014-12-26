@@ -4,6 +4,7 @@ title:  "Using the SwipeRefreshLayout"
 date:   2014-4-13 15:06:00
 categories: android
 tags: SwipeRefreshLayout
+redirect_from: "/2014/04/13/playing-around-with-the-swiperefreshlayout/"
 ---
 The pull to refresh is a UI pattern long since present in mobile applications - it makes the user able to refresh the current view with a vertical swipe. It's most commonly used in iOS apps, although it can also be found in quite a few Android apps. Not long ago Google made an Androidified version (first appeared in Google Now), where the refresh indicator is built into the ActionBar. Although a great library was available for a couple of months now ([ActionBar-PullToRefresh](https://github.com/chrisbanes/ActionBar-PullToRefresh) by Chris Banes), Google added an _official_ way to  to achieve this effect to the [Support Library v19.1.0](http://developer.android.com/tools/support-library/index.html), called [SwipeRefreshLayout](http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html).
 <!-- more -->

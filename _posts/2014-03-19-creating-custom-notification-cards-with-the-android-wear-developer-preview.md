@@ -5,6 +5,7 @@ date:   2014-3-19 07:24:00
 image: android_wear_developer_preview.png
 categories: android
 tags: Android Wear
+redirect_from: "/2014/03/19/creating-custom-notification-cards-with-the-android-wear-developer-preview/"
 ---
 When Google presented Android Wear, we started to experiment with the Developer preview, and while at this time we're limited to using only notifications (since currently, there is no _real_ Android Wear SDK), the results are surprisingly good. This example will show you how to create a horizontally swipeable, card-like notification for Android Wear.
 <!-- more -->

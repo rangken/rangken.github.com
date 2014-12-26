@@ -4,6 +4,7 @@ title:  "ParallaxViewPager: parallax background effect for the ViewPager"
 date:   2014-5-9 5:35:00
 categories: android
 tags: ViewPager ParallaxViewPager
+redirect_from: "/2014/05/09/parallaxviewpager-parallax-background-effect-for-the-viewpager/"
 ---
 The so-called parallax effect is common in both web design and in mobile apps, it can be found on the major platforms, from Windows Phone to iOS through Android. According to Wikipedia, _Parallax scrolling is a special scrolling technique in computer graphics, wherein background images move by the camera slower than foreground images, creating an illusion of depth (...)_. A popular, but not over-used effect, which goes well with a ViewPager and can do wonders with the user experience. The Android SDK doesn't provide a built-in way to achieve it, so I created my own interpretation.
 <!-- more -->
