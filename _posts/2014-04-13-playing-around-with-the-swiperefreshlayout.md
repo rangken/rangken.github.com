@@ -33,7 +33,7 @@ The SwipeRefreshLayout takes care of detecting the vertical swipe, showing a pro
 It is possible to trigger multiple _onRefresh()_ events while one is running, so you'll have to take care of everything to work correctly (RxJava's Subscription comes in handy). And while the refresh animation is triggered by a swipe, it will not stop when the task is finished, this has to be done manually with the _setRefreshing()_ method. Calling this function at startup (when the items are loading for the first time, without the user explicitly refreshing) can be a good way of providing consistent experience instead of using a ProgressBar.
 
 <p align="center">
-    <img src="http://localhost:4000/img/post/swiperefreshlayout.gif" >
+    <img src="http://andraskinder.com/img/post/swiperefreshlayout.gif" >
 </p>
 
 You can set the refresh indicator colors with the _setColorScheme()_ method, which is a bit unflexible - the number of colors is always four, not more, not less. And an other thing: only resource identifiers supported, so the colors have to be defined in an xml, you can't supply them in code. 

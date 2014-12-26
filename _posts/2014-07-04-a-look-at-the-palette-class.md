@@ -21,15 +21,15 @@ Currently there is no official documentation, you can refer to [this article](ht
 
 To understand what this means, here are some examples. The first column contains the colors from a _generate()_ call with a number of six (note 1: sorted by the default order; note 2: I encountered an issue with one of the pictures where a param of 6 only resulted in 5 colors, so I generated 7 colors and used the first six results). The second column contains the prominent colors. For the first one I used ['The Starry Night'](http://www.wikiart.org/en/vincent-van-gogh/the-starry-night-1889) by Vincent van Gogh:  
 
-<img src="http://localhost:4000/img/post/palette_starry_night.jpg">
+<img src="http://andraskinder.com/img/post/palette_starry_night.jpg">
 
 A picture of the [Carina Nebula](http://hqwide.com/wallpapers/l/1280x800/45/outer_space_nebulae_digital_art_artwork_carina_nebula_1280x800_44297.jpg):  
 
-<img src="http://localhost:4000/img/post/palette_carina.jpg">
+<img src="http://andraskinder.com/img/post/palette_carina.jpg">
 
 [Nighthawks](http://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg) by Edward Hopper:  
 	
-<img src="http://localhost:4000/img/post/palette_nighthawks_at_the_diner.jpg">
+<img src="http://andraskinder.com/img/post/palette_nighthawks_at_the_diner.jpg">
 
 ## Including Palette from the Support Library
 

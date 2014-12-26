@@ -13,7 +13,7 @@ Recently I had to create an app with a ListView and an always visible, customize
 Check out the demo application, available in the [Play Store](https://play.google.com/store/apps/details?id=com.andraskindler.quickscrollsample).
 
 <p  align="center">
-    <img src="http://localhost:4000/img/post/quickscroll_3.png" style="width: 320px; height: auto;"/>
+    <img src="http://andraskinder.com/img/post/quickscroll_3.png" style="width: 320px; height: auto;"/>
 </p>
 
 QuickScroll is a library aimed at creating similar scrolling experiences to the native Contacts app's People view. It has the same scrolling capabilities as the ListView's native fastscroll, but comes with a much a much more customizable design, two indicator styles and an always visible scrollbar. The two most common modes are popup and indicator. Works seamlessly with ListView and ExpandableListView.
@@ -66,5 +66,5 @@ Both styles also come with a _WITH_HANDLE suffix, creating a holo-themed handleb
 Feel free to fork on [github](https://github.com/andraskindler/quickscroll), every comment and contribution is welcome. Keep in mind that this is a beta version, so there might be bugs and glitches; don't refrain from pointing them out.
 
 <p  align="center">
-    <img src="http://localhost:4000/img/post/quickscroll_4.png" style="width: 320px; height: auto;" />
+    <img src="http://andraskinder.com/img/post/quickscroll_4.png" style="width: 320px; height: auto;" />
 </p>

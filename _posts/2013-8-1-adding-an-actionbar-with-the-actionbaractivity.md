@@ -59,5 +59,5 @@ Declaring the items is almost the same as using the regular ActionBar: by creati
 Here are a couple of screenshots using the ActionBarActivity on a device running Android 2.2 with different themes: Theme.AppCompat.Light and Theme.AppCompat.Light.DarkActionBar.
 
 <p  align="center">
-	<img src="http://localhost:4000/img/post/actionbar_support.png"/>
+	<img src="http://andraskinder.com/img/post/actionbar_support.png"/>
 </p>

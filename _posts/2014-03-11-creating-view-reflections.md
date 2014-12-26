@@ -52,7 +52,7 @@ textView.draw(c);
 The resulting reflection can be divided into four steps, meaning creating a reflection is a four pass process. The picture below illustrates what you'll achieve with each step.
 
 <p align="center">
-	<img src="http://localhost:4000/img/post/view_reflection.jpg">
+	<img src="http://andraskinder.com/img/post/view_reflection.jpg">
 </p>
 
 You'll need to determine the size of the reflection (it might be a good idea to do this as a percentage of the original view) and the height of the gap, both should be in pixels. You'll also need a new bitmap (with a size of the original bitmap, the reflection and the gap combined), and its Canvas.
