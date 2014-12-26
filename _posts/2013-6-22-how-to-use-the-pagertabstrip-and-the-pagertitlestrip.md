@@ -63,5 +63,5 @@ strip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 The following picture shows a PagerTitleStrip and a PagerTabStrip; the colors are not too fancy, but you'll get the idea.
 
 <p  align="center">
-<img src="http://andraskinder.com/img/post/pagertitlestrip_pagertabstrip.jpg"/>
+<img src="http://andraskindler.com/img/post/pagertitlestrip_pagertabstrip.jpg"/>
 </p>

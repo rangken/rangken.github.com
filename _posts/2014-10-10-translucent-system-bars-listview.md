@@ -60,7 +60,7 @@ private int getNavigationBarHeight(final Context context) {
 The result:
 
 <p align="center">
-    <img src="http://andraskinder.com/img/post/translucent_listview.gif"/>
+    <img src="http://andraskindler.com/img/post/translucent_listview.gif"/>
 </p>
 
 That's all, translucent system bars and ListViews can work well together with this fairly simple solution. The code runs on APLI LEVEL < 19 as well. We use this pattern is well-tested, we use it in [Ready](https://play.google.com/store/apps/details?id=com.ready.android) wherever applicable.

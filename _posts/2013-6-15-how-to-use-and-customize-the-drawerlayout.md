@@ -54,7 +54,7 @@ And that's all, the DrawerLayout is fully functional: swipe from the left for th
 *   You can also change the shadow of the drawers with the setDrawerShadow() method. This requires a drawable resource (either from the /res folder or from code, just make sure it has a non-zero width). This can be done both for the left and right drawers, set the gravity parameter acordingly.
 
 <p  align="center">
-    <img src="http://andraskinder.com/img/post/drawerlayout.jpg"/>
+    <img src="http://andraskindler.com/img/post/drawerlayout.jpg"/>
 </p>
 
 If you see stuttering and glitches, you might want to consider Google's advice, cited from the official documentation:

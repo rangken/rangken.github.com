@@ -39,7 +39,7 @@ public void transformPage(View page, float position) {
 {% endhighlight %}
 
 <p  align="center">
-<img src="http://andraskinder.com/img/post/viewpager_pagertransformer_alpha.gif" style="width:240px; height: auto;"/>
+<img src="http://andraskindler.com/img/post/viewpager_pagertransformer_alpha.gif" style="width:240px; height: auto;"/>
 </p>
 
 These lines perform a scaling effect from and to 50%:
@@ -54,7 +54,7 @@ final float normalizedposition = Math.abs(Math.abs(position) - 1);
 {% endhighlight %}
 
 <p  align="center">
-<img src="http://andraskinder.com/img/post/viewpager_pagertransformer_scale.gif" style="width:240px; height: auto;"/>
+<img src="http://andraskindler.com/img/post/viewpager_pagertransformer_scale.gif" style="width:240px; height: auto;"/>
 </p>
 
 The last example rotates the pages around their Z axis by 30 degrees; you don't need to normalize for this one. The effect is similar to the _cover flow_ UI pattern:
@@ -67,7 +67,7 @@ public void transformPage(View page, float position) {
 {% endhighlight %}
 
 <p  align="center">
-<img src="http://andraskinder.com/img/post/viewpager_pagertransformer_cover_flow.gif" style="width:240px; height: auto;"/>
+<img src="http://andraskindler.com/img/post/viewpager_pagertransformer_cover_flow.gif" style="width:240px; height: auto;"/>
 </p>
 
 Of course rotating the views or fragments around the axes is also possible, but the effect might be a bit overwhelming for the user, so I don't recommend it. Anyway, it can be done with the other _setRotation()_ methods.

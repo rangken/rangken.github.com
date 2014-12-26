@@ -12,7 +12,7 @@ The so-called parallax effect is common in both web design and in mobile apps, i
 There are already a few solutions to the problem online, but none of them was a perfect match for my needs. GitHub user ChrisJenx's [Paralloid library](https://github.com/chrisjenx/Paralloid) is a good one, but it doesn't work with the ViewPager. Most solutions available are based on a custom PagerTransformer, but I tried a different approach by extending the ViewPager and implementing a custom onDraw logic. I wrapped the whole thing into a custom view called ParallaxViewPager, which is available at [GitHub](https://github.com/andraskindler/parallaxviewpager/) and to be used as a Gradle dependency.
 
 <p  align="center">
-<img src="http://andraskinder.com/img/post/parallaxviewpager.gif"/>
+<img src="http://andraskindler.com/img/post/parallaxviewpager.gif"/>
 </p>
 
 ## Using the ParallaxViewPager

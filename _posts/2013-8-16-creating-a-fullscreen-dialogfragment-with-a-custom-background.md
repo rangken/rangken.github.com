@@ -19,7 +19,7 @@ Customizing a DialogFragment is a quite easy task. Create a class extending Dial
 These four steps give you an empty fullscreen layout to play with, with the option to add a semi-transparent background, revealing the underlying activity. From this point, only your imagination is the limit; a good example of what can be achieved is the following screen, taken from an upcoming app: 
 
 <p  align="center">
-    <img src="http://andraskinder.com/img/post/fullscreen_dialogfragment.png"/>
+    <img src="http://andraskindler.com/img/post/fullscreen_dialogfragment.png"/>
 </p>
 
 You can find more on using and customizing the DialogFragment at the [official developer site](http://developer.android.com/reference/android/app/DialogFragment.html). Here is a short sample code illustrating a DialogFragment with a yellow background and an empty layout.
