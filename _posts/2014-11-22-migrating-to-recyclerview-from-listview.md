@@ -102,7 +102,7 @@ This is available as a [third-party library](https://github.com/timehop/sticky-h
 
 ### SwipeRefreshLayout
 
-The [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html) is a good thing to have if the adapter can be refreshed. The good news is that it can be used as usual, check out [this tutorial](http://howrobotswork.wordpress.com/2014/04/13/playing-around-with-the-swiperefreshlayout/) for more.
+The [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html) is a good thing to have if the adapter can be refreshed. The good news is that it can be used as usual, check out [this tutorial](http://andraskindler.com/2013/playing-around-with-the-swiperefreshlayout/) for more.
 
 ### Item animations
 

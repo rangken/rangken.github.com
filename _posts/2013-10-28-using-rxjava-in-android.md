@@ -191,4 +191,4 @@ This example shows the versatility and robustness of RxJava. Without Rx, you'd n
 
 RxJava is a great way to utilize concurrency in Android apps, and although it takes some time getting used to, right now I can't think of a better way of handling async calls. The _reactive extensions_ library is well thought-out, we've been using the RxJava implementation in Android apps for a few weeks now (our [startup](http://getinch.com/)'s async tasks are completely based on it), and the more you dive into it, the more it will amaze you.
 
-Want more? Check out the follow-up posts for [error handling options](http://howrobotswork.wordpress.com/2013/11/18/rxjava-and-android-error-handling/) and [Subjects](http://howrobotswork.wordpress.com/2013/12/23/rxjava-and-android-working-with-subjects/).
+Want more? Check out the follow-up posts for [error handling options](http://andraskindler.com/2013/rxjava-and-android-error-handling/) and [Subjects](http://andraskindler.com/2013/rxjava-and-android-working-with-subjects/).

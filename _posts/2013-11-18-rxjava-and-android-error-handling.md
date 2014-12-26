@@ -79,4 +79,4 @@ If the work doesn't finish before the timeout expires, a [java.util.concurrent.T
 
 Error handling with RxJava is quite simple in the common cases, retry, timeout and co. come in handy when doing failure-prepared async jobs in the background. Observables armed with a combination of the features explained in this post can add a huge boost to the user experience when it comes to networking or other asynchronous work, and error propagation allows the developer to only implement error handling once per observable chain.
 
-Hungry for more? Check out the follow-up post about [Subjects](http://howrobotswork.wordpress.com/2013/12/23/rxjava-and-android-working-with-subjects/)!
+Hungry for more? Check out the follow-up post about [Subjects](http://andraskindler.com/2013/rxjava-and-android-working-with-subjects/)!
