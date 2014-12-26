@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Migrating to RecyclerView from ListView"
-date:   2014-11-29 19:22:27
+date:   2014-11-22 12:00:00
 categories: android
 tags: RecyclerView LayoutManager
 ---
