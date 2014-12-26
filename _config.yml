@@ -7,7 +7,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: ""
 permalink: '/blog/:year/:title/'
 paginate_path: '/blog/page:num/'
-paginate: 28
+paginate: 8
 relative_permalinks: false
 excerpt_separator: "<!-- more -->"
 
