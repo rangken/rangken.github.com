@@ -2,9 +2,10 @@
 layout: post
 title:  "Translucent system bars + ListView done right"
 date:   2014-10-10 12:00:00
-categories: android
-tags: RecyclerView ListView
+categories: Android development
+tags: RecyclerView, ListView, translucent system bars
 redirect_from: "/2014/10/10/translucent-system-bars-listview-done-right/"
+description: A guide about how to properly use the translucent theme with ListViews or other vertically scrolling ViewGroups.
 ---
 About a year ago, Google introduced the translucent UI in [KitKat](https://developer.android.com/about/versions/kitkat.html), making the system bars transparent, with a hint of black gradient. After activating, apps are able to draw under the status bar (the one on top of the screen, with the notifications) and the navigation bar (this is optional, only present devices with no hardware buttons, at the bottom of the screen, contains the back, home and app switcher keys), which can result in a slick and modern user experience if done right.
 <!-- more -->

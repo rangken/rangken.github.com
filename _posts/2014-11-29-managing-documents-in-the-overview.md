@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "Managing documents in the Overview"
+title:  "Multitasking on steroids: managing documents in the Overview"
 date:   2014-11-29 19:22:27
-categories: android
+categories: Android development
 image: 2014-11-29-concurrent_overviews.png
-tags: Overview Multitasking 
+tags: Overview, Multitasking, Lollipop
 redirect_from: "/2014/11/29/managing-documents-in-the-overview/"
+description: A tutorial about the new multitasking features of Android 5.0. This guide will show you how to customize your overview entry.
 ---
 The multitasking screen has undergone some huge changes in the 5.0 release. It also has a new name: _overview_, with the items called _documents_. Before Lollipop, this screen could only display one item per app, but now it is possible to open multiple tasks per app, each of them appearing as a separate document in the overview. Moreover, the appearance of each document can be tailored to the app - this post will show you how. 
 <!-- more -->

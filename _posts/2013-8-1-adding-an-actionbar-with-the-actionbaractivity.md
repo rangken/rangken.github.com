@@ -2,12 +2,12 @@
 layout: post
 title:  "Adding an ActionBar with the ActionBarActivity"
 date:   2013-08-01 10:00:00
-categories: android
-tags: ActionBar ActionBarActivity
+categories: Android development
+tags: ActionBar, ActionBarActivity
 redirect_from: "/2013/08/01/adding-an-actionbar-with-the-actionbaractivity/"
+description: This tutorial shows how to use the ActionBarActivity from the support library in Android apps.
 ---
 The unveiling of Android 4.3 was followed by the arrival of a new Support Library ([revision 18](http://developer.android.com/tools/support-library/index.html)). Besides adding new features to the v4 library, Google introduced a new compatibility element in v7, which aims to bring the ActionBar UI pattern to pre-Honeycomb platforms. Requires API level 7, aka Android 2.1 / Eclair.
-
 <!-- more -->
 
 By the way, there was already an existing solution for this case: Jake Warton's [ActionBarSherlock](http://actionbarsherlock.com/) is widely used in apps, provides excellent features and easy usability; it might be a good idea to check it out if you're not already familiar with it.

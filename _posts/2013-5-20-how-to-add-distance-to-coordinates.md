@@ -2,9 +2,10 @@
 layout: post
 title:  "How to add distance to coordinates"
 date:   2013-5-20 09:30:00
-categories: android
-tags: coordinates
+categories: Android development
+tags: coordinates, location
 redirect_from: "/2013/05/20/how-to-add-distance-to-coordinates/"
+description: Modifying latitude and longitude with a distance.
 ---
 A few weeks ago I had to translate geocoordinates (latitude and longitude) having a given directon (aka an angle) and a distance in an Android app. Searching the web I found a few good solutions, this is my take on the problem shaped to my needs, heavily based on one of the suggestions of [this thread](http://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters).
 

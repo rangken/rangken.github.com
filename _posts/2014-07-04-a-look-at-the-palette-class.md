@@ -2,9 +2,10 @@
 layout: post
 title:  "A look at the Palette class"
 date:   2014-7-4 15:06:00
-categories: android
-tags: Palette
+categories: Android development
+tags: Palette, Lollipop
 redirect_from: "/2014/07/04/a-look-at-the-palette-class/"
+description: A look on the capabilities and performance of the Palette class from the support library.
 ---
 Back in February, Chris Banes' two excellent blog posts (color matching [part one](http://chris.banes.me/2014/02/18/colour-matching/) and [part two](https://chris.banes.me/2014/03/10/colour-matching-pt-2/)) demonstrated how can we extract the dominant colors from a bitmap. This can be a powerful asset to the user experience of your app: think about dynamically colored UI elements, or a filter based on the dominant color of your bitmap. The Palette class from the new Support Library announced at Google I/O does the same. 
 <!-- more -->

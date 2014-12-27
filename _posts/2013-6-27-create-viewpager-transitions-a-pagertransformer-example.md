@@ -2,9 +2,10 @@
 layout: post
 title:  "Create ViewPager transitions: a PagerTransformer example"
 date:   2013-06-27 10:00:00
-categories: android
-tags: PagerTransformer ViewPager 
+categories: Android development
+tags: PagerTransformer, ViewPager 
 redirect_from: "/2013/06/27/create-viewpager-transitions-a-pagertransformer-example/"
+description: Fancy swipe effects on the ViewPager with the PagerTransformer.
 ---
 The ViewPager is a great UI element, providing a smooth swipe animation for switching between pages. But what if a different scrolling effect is required? Fear not, the [support library](http://developer.android.com/tools/extras/support-library.html) provides a useful solution called the [PagerTransformer](http://developer.android.com/reference/android/support/v4/view/ViewPager.PageTransformer.html). It was introduced in revision 11, and is supported from API level 11 (Honeycomb) or greater.
 <!-- more -->

@@ -2,12 +2,12 @@
 layout: post
 title:  "How to use and customize the DrawerLayout"
 date:   2013-06-15 08:00:00
-categories: android
+categories: Android development
 tags: DrawerLayout
 redirect_from: "http://andraskindler.com/2013/06/15/how-to-use-and-customize-the-drawerlayout/"
+description: Tutorial about using the DrawerLayout in Android apps.
 ---
 The DrawerLayout was introduced in the latest support library (revision 13), and has many similarities with the SlidingPaneLayout. It is used to add navigation capabilities and to display more information in the same activity, with just a swipe from the sides - a great way to add extra functionality without stuffing the screen with controls. Just tell the user the panels are there, otherwise no one will know about them.
-
 <!-- more -->
 
 The first question is which side should you use in your application? Position the DrawerLayout on the left (start) of the screen if it contains navigation actions. If this is the case, you might want to check out Google's official [NavigationDrawer tutorial](http://developer.android.com/design/patterns/navigation-drawer.html). If the DrawerLayout contains actions specific to the current content, it should go on the right (end) side. For example if you create an app for playing music videos, you could put artist infos or playback options into the DrawerLayout. The good news is, you can use both sides in one DrawerLayout.

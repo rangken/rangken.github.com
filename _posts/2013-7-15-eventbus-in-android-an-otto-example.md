@@ -2,9 +2,10 @@
 layout: post
 title:  "Eventbus in Android: an Otto example"
 date:   2013-07-15 09:00:00
-categories: android
+categories: Android development
 tags: Otto
 redirect_from: "/2013/07/15/eventbus-in-android-an-otto-example/"
+description: Decoupled intercomponent communication in Android applications with Square's Otto.
 ---
 Loose coupling is a great invention: it allows components to have less dependencies, resulting in a far more reusable code. A common way to achieve this is via using interfaces, with a downside of an excessive amount of boilerplate code. Instead of using interfaces, loose coupling can also be achieved with the publisher-subcsriber model. One of Square's open source library can be very helpful in this case, it requires far less extra code than using interfaces. This post will show the basic usage of Otto.
 <!-- more -->

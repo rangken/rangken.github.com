@@ -2,9 +2,10 @@
 layout: post
 title:  "RxJava and Android: error handling"
 date:   2013-11-18 15:30:00
-categories: android
+categories: Android development
 tags: RxJava
 redirect_from: "/2013/11/18/rxjava-and-android-error-handling/"
+description: RxJava is built for creating fault-tolerant apps, with a lot-of error handling options out-of-the-box. This tutorial will show you the basics.
 ---
 If you're working with async processes, transparent error handling is a must for adequate user experience. This example is about calling a REST service, where error handling is particularly important: as networking is sensitive, it always requires some sort of retry, timeout and failure mechanism. RxJava is built for creating fault-tolerant apps, this tutorial will show you the basics.
 

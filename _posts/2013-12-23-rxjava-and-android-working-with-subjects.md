@@ -2,9 +2,10 @@
 layout: post
 title:  "RxJava and Android: working with subjects"
 date:   2013-12-23 15:30:00
-categories: android
-tags: RxJava Subject
+categories: Android development
+tags: RxJava, Subject, LocationClient
 redirect_from: "/2013/12/23/rxjava-and-android-working-with-subjects/"
+description: A look at RxJava's Subject classes, with an example on monitoring the device location.
 ---
 RxJava's observers and observables offer a great way to manage multiple threads and async processes in Android development. Besides these, the library also offers subjects, which are perfect for long running async processes with periodic updates, consumed by multiple observers.
 <!-- more -->

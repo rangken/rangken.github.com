@@ -2,12 +2,12 @@
 layout: post
 title:  "Using RxJava with Android"
 date:   2013-10-28 10:22:27
-categories: android
-tags: RxJava 
+categories: Android development
+tags: RxJava, Retrofit 
 redirect_from: "/2013/10/28/using-rxjava-in-android/"
+description: RxJava is a powerful library, which helps helps build fault-tolerant, reactive applications, also available on Android.
 ---
 This post is the first in a series about RxJava and Android. This tutorial will show you how to build a REST API client in Android with RxJava observables (and based on Square's Retrofit).
-
 <!-- more -->
 
 If you're into Android (and Java) development, there is a good chance you've already heard about RxJava, which is a Java implementation of Reactive Extensions developed by Netflix. Reactive Extensions is a _library to compose asynchronous and event-based programs using observable collections and LINQ-style query operators_, quoted from the corresponding [MSDN site](http://msdn.microsoft.com/en-us/data/gg577609.aspx). Netflix made the library available for the public on Github, supporting Java 6 or newer, making it available to use with Android apps as well.

@@ -2,9 +2,10 @@
 layout: post
 title:  "How to dim bitmaps with RenderScript"
 date:   2014-4-28 15:06:00
-categories: android
+categories: Android development
 tags: Renderscript
 redirect_from: "/2014/04/28/how-to-dim-bitmaps-with-renderscript/"
+description: A post about how to use Renderscript for image manipulation.
 ---
 RenderScript was introduced with Honeycomb, aka API level 11. It is an API designed for performance intensive computations by executing native code on the device. These segments run either on the CPU or the GPU - this is not for the developer to decide, it is determined in runtime. I won't go into more detail since there are a lot of comprehensive articles out there, for more info check out the documentation at the end of the post. This short tutorial is about how to write RenderScript code for simple image manipulation tasks.
 <!-- more -->

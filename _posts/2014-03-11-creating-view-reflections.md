@@ -3,9 +3,10 @@ layout: post
 title:  "Creating View reflections"
 date:   2014-3-11 15:42:00
 image: imageview_reflection.png
-categories: android
+categories: Android development
 tags: reflection
 redirect_from: "/2014/03/11/creating-view-reflections/"
+description: This tutorial is about creating the faded reflection of any View subclass in Android apps.
 ---
 Although it looks like the age of skeuomorphism and over-designed apps is finally over, you shouldn't forget everything you've learned in that era. One of the effects is reflection, which can be good and bad at the same time: overusing can make your UI look cheesy and bloated, but sometimes it's the right thing to use to boost the UX. This tutorial will show you how to create the faded reflection of any View subclass.
 <!-- more -->
