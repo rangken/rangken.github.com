@@ -6,10 +6,12 @@ categories: Github Pages + Jekyll
 tags: GitHub Pages, Jekyll, SEO, Wordpress
 description: A guide on moving from WordPress to GitHub Pages and Jekyll, setting up a blog without bootstrapping tools, with some tips on SEO and redirects.
 ---
-I finally made the transition from WordPress to GitHub Pages, resulting in a minimal, hand-crafted blog, without using bootstrapping tools. This post contains what I did, sticking to the bare essentials, plus some tips on SEO and redirects.
+I finally made the transition from WordPress to GitHub Pages, resulting in a minimal, hand-crafted blog, without using bootstrapping tools. This post contains what I went with, sticking to the bare essentials, plus some tips on SEO and redirects.
 <!-- more -->
 
-There are a lot of good bootstrapping tools out there, [Jekyll Now](https://github.com/barryclark/jekyll-now), [Poole](http://getpoole.com/), [Jekyll Bootstrap](http://jekyllbootstrap.com/), and the likes will get you up and running within minutes. I wanted to go with the vanilla option - this gave me a greater understanding of the platform, thus making me able to make changes quicker, and giving a finer control above the site. Also, building a minimal site requires a small effort, I was able to finish in a few days, what I wanted working only a couple of hours on it for every day.
+### Getting started
+
+There are a lot of good bootstrapping tools out there, [Jekyll Now](https://github.com/barryclark/jekyll-now), [Poole](http://getpoole.com/), [Jekyll Bootstrap](http://jekyllbootstrap.com/), and the likes will get you up and running within minutes. I wanted to go with the vanilla option - this gave me a greater understanding of the platform, thus making me able to make changes quicker, and giving a finer control above the site. Also, building a minimal site requires a small effort, I was able to finish in a few days, what I wanted working only a couple of hours on it every day.
 
 I read through some guides, and ended up following Mike Greiling's excellent series of posts (part [one](http://pixelcog.com/blog/2013/jekyll-from-scratch-introduction/), [two](http://pixelcog.com/blog/2013/jekyll-from-scratch-core-architecture) and [three](http://pixelcog.com/blog/2013/jekyll-from-scratch-extending-jekyll/)), which answered nearly all of my questions. The setup of the site was based on these articles, also serving as guidelines for further customizations.
 
