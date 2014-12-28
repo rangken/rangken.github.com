@@ -3,7 +3,7 @@ layout: post
 title:  "How to use the PagerTabStrip and the PagerTitleStrip"
 date:   2013-06-22 11:00:00
 categories: Android development
-tags: PagerTabStrip, PagerTitleStrip, ViewPager 
+tags: PagerTabStrip PagerTitleStrip ViewPager 
 redirect_from: "http://andraskindler.com/2013/06/22/how-to-use-the-pagertabstrip-and-the-pagertitlestrip"
 description: The PagerTabStrip and PagerTitleStrip can be used to show titles above the ViewPager.
 ---

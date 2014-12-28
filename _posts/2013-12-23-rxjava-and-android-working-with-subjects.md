@@ -3,7 +3,7 @@ layout: post
 title:  "RxJava and Android: working with subjects"
 date:   2013-12-23 15:30:00
 categories: Android development
-tags: RxJava, Subject, LocationClient
+tags: RxJava Subject LocationClient
 redirect_from: "/2013/12/23/rxjava-and-android-working-with-subjects/"
 description: A look at RxJava's Subject classes, with an example on monitoring the device location.
 ---

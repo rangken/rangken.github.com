@@ -3,7 +3,7 @@ layout: post
 title:  "How to add distance to coordinates"
 date:   2013-5-20 09:30:00
 categories: Android development
-tags: coordinates, location
+tags: coordinates location
 redirect_from: "/2013/05/20/how-to-add-distance-to-coordinates/"
 description: Modifying latitude and longitude with a distance.
 ---

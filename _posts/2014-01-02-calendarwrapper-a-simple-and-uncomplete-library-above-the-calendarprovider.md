@@ -3,7 +3,7 @@ layout: post
 title:  "CalendarWrapper - a simple library above the CalendarProvider"
 date:   2014-1-2 10:20:00
 categories: Android development
-tags: CalendarWrapper, CalendarProvider
+tags: CalendarWrapper CalendarProvider
 redirect_from: "/2014/01/02/calendarwrapper-a-simple-and-uncomplete-library-above-the-calendarprovider/"
 description: CalendarWrapper is a thin layer above the CalendarProvider, making able to access data via object methods.
 ---

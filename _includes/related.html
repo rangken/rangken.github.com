@@ -1,0 +1,28 @@
+<div>
+	{% assign bestMatch = 0 %}	
+
+    {% for post in site.posts %}
+		{% if page.id != post.id %}
+        	{% assign sameTagCount = 0 %}
+
+			{% for tag in post.tags %}
+            	{% if page.tags contains tag %}
+				
+              		{% assign sameTagCount = sameTagCount | plus: 1 %}
+            	
+            	{% endif %}
+        	{% endfor %}
+
+        	{% if sameTagCount > bestMatch %}
+        		{% assign bestMatch = sameTagCount %}
+        		{% assign bestMatchPost = post %}
+        	{% endif %}
+		{% endif %}
+    {% endfor %}
+
+    {% if bestMatch > 0 %}
+    	<div class="post-related">
+			Related: <a href="{{ bestMatchPost.url }}">{{ bestMatchPost.title }}</a>
+        </div>
+    {% endif %}
+</div>

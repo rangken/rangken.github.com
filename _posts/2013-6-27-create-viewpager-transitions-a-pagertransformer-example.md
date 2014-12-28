@@ -3,7 +3,7 @@ layout: post
 title:  "Create ViewPager transitions: a PagerTransformer example"
 date:   2013-06-27 10:00:00
 categories: Android development
-tags: PagerTransformer, ViewPager 
+tags: PagerTransformer ViewPager 
 redirect_from: "/2013/06/27/create-viewpager-transitions-a-pagertransformer-example/"
 description: Fancy swipe effects on the ViewPager with the PagerTransformer.
 ---

@@ -3,7 +3,7 @@ layout: post
 title:  "Using RxJava with Android"
 date:   2013-10-28 10:22:27
 categories: Android development
-tags: RxJava, Retrofit 
+tags: RxJava Retrofit 
 redirect_from: "/2013/10/28/using-rxjava-in-android/"
 description: RxJava is a powerful library, which helps helps build fault-tolerant, reactive applications, also available on Android.
 ---

@@ -3,7 +3,7 @@ layout: post
 title:  "Adding an ActionBar with the ActionBarActivity"
 date:   2013-08-01 10:00:00
 categories: Android development
-tags: ActionBar, ActionBarActivity
+tags: ActionBar ActionBarActivity
 redirect_from: "/2013/08/01/adding-an-actionbar-with-the-actionbaractivity/"
 description: This tutorial shows how to use the ActionBarActivity from the support library in Android apps.
 ---

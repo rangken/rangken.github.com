@@ -4,7 +4,7 @@ title:  "Multitasking on steroids: managing documents in the Overview"
 date:   2014-11-29 19:22:27
 categories: Android development
 image: 2014-11-29-concurrent_overviews.png
-tags: Overview, Multitasking, Lollipop
+tags: Overview Multitasking Lollipop
 redirect_from: "/2014/11/29/managing-documents-in-the-overview/"
 description: A tutorial about the new multitasking features of Android 5.0. This guide will show you how to customize your overview entry.
 ---

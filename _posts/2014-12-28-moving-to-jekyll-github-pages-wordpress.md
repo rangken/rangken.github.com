@@ -3,10 +3,10 @@ layout: post
 title:  "Moving to Jekyll + GitHub Pages from WordPress"
 date:   2014-12-28 15:42:00
 categories: Github Pages + Jekyll
-tags: GitHub Pages, Jekyll, SEO, Wordpress
-description: A guide on moving from WordPress to GitHub Pages and Jekyll, setting up a blog without bootstrapping tools, with some tips on SEO and redirects.
+tags: GitHub Pages Jekyll SEO Wordpress
+description: A guide on moving from WordPress to GitHub Pages and Jekyll, setting up a blog without bootstrapping tools, with some tips on SEO, related posts and redirects.
 ---
-I finally made the transition from WordPress to GitHub Pages, resulting in a minimal, hand-crafted blog, without using bootstrapping tools. This post contains what I went with, sticking to the bare essentials, plus some tips on SEO and redirects.
+I finally made the transition from WordPress to GitHub Pages, resulting in a minimal, hand-crafted blog, without using bootstrapping tools. This post contains what I went with, sticking to the bare essentials, plus some tips on SEO, related posts and redirects.
 <!-- more -->
 
 ### Getting started
@@ -36,12 +36,17 @@ Here's the list (more like a collection of links) of what I did besides the init
 
 ### SEO
 
-I did some basic SEO on the site, by generating the proper `meta`-tags for each page. First, I added the `tags`, `categories`, `name` and  `description` variables, then generated the tags in *head.html* with the following:
+I did some basic SEO on the site, by generating the proper `meta`-tags and related posts for each page. Also, each post automatically fills out the `alt` tag of the banner image (if applicable) with the title of the page.
+
+#### Meta tags
+First, I added the `tags`, `categories`, `name` and  `description` variables, then generated the tags in *head.html* with the following. Be sure to fill out a proper description, as it's the meta tag that matters.
 
 {% highlight html %}
+{% raw %}
 <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.description | strip_html  | strip_newlines }}{% endif %}">
 <meta name="keywords" content="{{page.tags | join: ' '}}, {{page.categories | join: ' ' }}"/>
 <meta name="author" content="{{ site.name }}">
+{% endraw %}
 {% endhighlight %}
 
 For example, this post has the following values:
@@ -59,6 +64,39 @@ And the generated tags:
 <meta name="description" content="A guide on moving from WordPress to GitHub Pages and Jekyll, setting up a blog without bootstrapping tools, with some tips on SEO and redirects.">
 {% if page.tags || page.category %}<meta name="keywords" content="{{page.tags | join: ' '}}, {{page.categories | join: ' ' }}"/>{% endif %}
 <meta name="author" content="Andras Kindler">
+{% endhighlight %}
+
+#### Related posts
+
+I got the idea from [this SO-thread](http://stackoverflow.com/questions/25348389/jekyll-and-liquid-show-related-posts-by-amount-of-equal-tags-2), and I modified David Jacquel's solution a bit. My take only gives the newest related link with the most matched tags.
+{% highlight html %}
+{% raw %}
+{% assign bestMatch = 0 %}
+{% for post in site.posts %}
+	{% if page.id != post.id %}
+    	{% assign sameTagCount = 0 %}
+
+		{% for tag in post.tags %}
+        	{% if page.tags contains tag %}
+			
+          		{% assign sameTagCount = sameTagCount | plus: 1 %}
+        	
+        	{% endif %}
+    	{% endfor %}
+
+    	{% if sameTagCount > bestMatch %}
+    		{% assign bestMatch = sameTagCount %}
+    		{% assign bestMatchPost = post %}
+    	{% endif %}
+	{% endif %}
+{% endfor %}
+
+{% if bestMatch > 0 %}
+	<div class="post-related">
+		Related: <a href="{{ bestMatchPost.url }}">{{ bestMatchPost.title }}</a>
+	</div>
+{% endif %}
+{% endraw %}
 {% endhighlight %}
 
 ### URL redirects

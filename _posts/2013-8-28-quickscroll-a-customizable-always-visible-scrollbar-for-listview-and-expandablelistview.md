@@ -3,7 +3,7 @@ layout: post
 title:  "QuickScroll: a customizable, always visible scrollbar for ListView and ExpandableListView"
 date:   2013-8-28 09:30:00
 categories: Android development
-tags: QuickScroll, ListView, ExpandableListView
+tags: QuickScroll ListView ExpandableListView
 redirect_from: "/2013/08/28/quickscroll-a-customizable-always-visible-scrollbar-for-listview-and-expandablelistview/"
 description: Bringing extended scrolling features to Android's native ListView and ExpandableListView.
 ---

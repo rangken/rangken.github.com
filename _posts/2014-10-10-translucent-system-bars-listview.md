@@ -3,7 +3,7 @@ layout: post
 title:  "Translucent system bars + ListView done right"
 date:   2014-10-10 12:00:00
 categories: Android development
-tags: RecyclerView, ListView, translucent system bars
+tags: RecyclerView ListView translucent system bars
 redirect_from: "/2014/10/10/translucent-system-bars-listview-done-right/"
 description: A guide about how to properly use the translucent theme with ListViews or other vertically scrolling ViewGroups.
 ---

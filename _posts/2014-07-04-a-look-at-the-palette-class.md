@@ -3,7 +3,7 @@ layout: post
 title:  "A look at the Palette class"
 date:   2014-7-4 15:06:00
 categories: Android development
-tags: Palette, Lollipop
+tags: Palette Lollipop
 redirect_from: "/2014/07/04/a-look-at-the-palette-class/"
 description: A look on the capabilities and performance of the Palette class from the support library.
 ---

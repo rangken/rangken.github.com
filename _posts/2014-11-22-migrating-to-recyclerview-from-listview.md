@@ -3,7 +3,7 @@ layout: post
 title:  "Migrating to RecyclerView from ListView"
 date:   2014-11-22 12:00:00
 categories: Android development
-tags: RecyclerView, LayoutManager, Lollipop
+tags: RecyclerView LayoutManager Lollipop ListView
 redirect_from: "/2014/11/22/migrating-to-recyclerview/"
 description: A step-by-step guide about how to change a ListView, a GridView or ExpandableListView to a RecyclerView.
 ---
