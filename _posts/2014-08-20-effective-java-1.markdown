@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Effective Java 객체의 생성과 호출"
+title: "Effective Java 1.객체의 생성과 호출"
 date: 2014-08-20 18:07:40 +0900
 comments: true
 categories:

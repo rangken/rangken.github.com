@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Effective Java 클래스와 인터페이스"
+title:  "Effective Java 3.클래스와 인터페이스"
 date:   2015-01-01 18:07:40 +0900
 categories: Java
 tags: Java effective-java

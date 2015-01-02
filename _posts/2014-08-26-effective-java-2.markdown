@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Effective Java 모든 객체에 공통적인 메소드"
+title:  "Effective Java 2.모든 객체에 공통적인 메소드"
 date:   2014-08-26 18:07:40 +0900
 categories: Java
 tags: Java effective-java
