@@ -9,8 +9,6 @@ tags: [Ruby, Blog]
 ## Programmer Blog Jekyll
 프로 그래머를 위한 블로그 [Jekyll(지킬)](https://github.com/mojombo/jekyll)에 대한 포스팅이다.
 
-{% githubrepo jekyll/jekyll %}
-
 많은 사람들이 블로그로 wordpress 를 사용하지만 jekyll 는 wordpress 에 비해서 좀더 개발자
 스러운 블로그 engine 이라고 할수 있겠다. 뭐 engine이라고 할만큼 대단하지 않고 단순한 parser라고 표현하는게 좋겠다.
 wordpress 처럼 특정 Database가 필요하지 않고 웹서버가 필요하지않다.

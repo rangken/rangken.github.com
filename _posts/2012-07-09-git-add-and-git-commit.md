@@ -27,18 +27,18 @@ git status 을 한다면 <br>
 
 그후에 status를 확인하면<br>
 `Changes to be committed:` <br>
-상태로 변경 된다. 해당 상태는 커밋하기 위한 상태이다. 
+상태로 변경 된다. 해당 상태는 커밋하기 위한 상태이다.
 이제 <br>
-> git commit -m "first commit" 
+> git commit -m "first commit"
 으로 커밋을 해준다.
 그후 status을 확인하면 <br>
 `nothing to commit (working directory clean)`
 상태인것을 확인 할 수 있다.!
 **간단히 정리하자면** <br>
-+ 파일 추가(untracked) 
++ 파일 추가(untracked)
 + git add . (tracked, unmodified)
-+ 파일 수정 (modified ) 
-+ git add . (staged) 
++ 파일 수정 (modified )
++ git add . (staged)
 + git commit -m "asd" (tracked, unmodified)
 
 > Nothing to commit -> commit 할게없음 <br>
@@ -48,24 +48,24 @@ git status 을 한다면 <br>
 
 
 ## Git add
-간단히 git add 명령어는 해당 파일을 
+간단히 git add 명령어는 해당 파일을
 untracked -> tracked 상태로 바꾸거나
 commit 하기 위한 상태 ( staged) 상태로 바꿀 수 있는 명령어 이다.
 git add option 을 넣어서 각 파일의 상태를 변경하는 명령어 이다. <br>
-`git add filename` 
+`git add filename`
    파일명에 해당 하는 파일을 add 한다.<br>
 `git add *.c`
    확장자가 c 파일인 모든 파일을 add 한다.<br>
-`git add .` 
+`git add .`
    변화된 파일과 추가된 파일 모두를 add 한다.
-(단 삭제된 파일은 add 하지 않는다) 
+(단 삭제된 파일은 add 하지 않는다)
 대부분 add 할때는 이명령어를 자주 사용한다.<br>
 `git add -u `
    변화된거랑 삭제된 것만 add 한다.
 ( 단 추가된 파일은 add 하지 않는다)<br>
 `git add -A`
  git add . 와 git add - u 를 동시에 실행 한 것과 동일한 명령어 이다. 삭제된 파일이 있을경우 이명령어를 통해 add 를 한다.
-## Git commit 
+## Git commit
  git commit 은 git 에 가장 기본이 되는 명령어 이다. git은 commit 단위로 변화를 저장하기 때문에 git commit 은 git add 와 다르게 신경써서 해주는 것이 좋다.
  너무 자주 할 경우 commit 이 너무 많아 복잡해 지며 너무 드물게 할경우 commit 된 내용을 잘 알 수 없다. 해당 commit 으로 상태를 돌릴 수 있으므로 어느 특정 작업이 완벽히 완료된 후에 commit 하는 것이 좋겠다. <br>
 `git commit -m "first commit"`
