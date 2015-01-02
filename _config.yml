@@ -1,8 +1,7 @@
 # Site settings
-title: ANDRASKINDLER
-email: andraskindler@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  Posts about development, mostly focused on Android.
+title: RANGKEN
+email: rangken@gmail.com
+description: > # rangken programming blog "baseurl:"
 
 baseurl: ""
 permalink: '/blog/:year/:title/'
@@ -11,14 +10,12 @@ paginate: 8
 relative_permalinks: false
 excerpt_separator: "<!-- more -->"
 
-url: "http://andraskindler.com"
-twitter_username: andraskindler
-github_username: andraskindler
-name: Andras Kindler
+url: "http://rangken.github.com"
+twitter_username: rangken87
+github_username: rangken
+name: Jaeyoung Kim
 
 # Build settings
 markdown: kramdown
 
-gems:
-  - jekyll-redirect-from
-  - jekyll-sitemap
+gems: ["jekyll-redirect-from", "emoji_for_jekyll", "jekyll-sitemap"]
