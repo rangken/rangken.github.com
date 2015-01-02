@@ -54,8 +54,6 @@ description: "Effective-Java 객체의 생성과 호출"
 
 - Static 팩토리 메소드를 먼저 고려해보고 무심코 public 생성자를 만드는 습관을 버려라.
 
-<!-- more -->
-___
 
 ### ITEM2 : 생성자의 매개변수가 많을때는 차라리 빌더를 만들어라.
 - 많은 변수를 가지면 Static Factory 나 생성자나 모든 초기화 함수를 만들어 주는데(*telescoping construntor*)는 한계가 있다.
@@ -111,7 +109,7 @@ ___
           {% endhighlight %}
 - Builder 는 매개변수가 많이 늘어나거나 가변인자를 사용할 경우 고려해보자. telescoping 방법보다 가독성이 좋고 JavaBeans 보다는 휠씬 안전하다.
 
-___
+
 
 ### ITEM3 : 싱글톤 만들때 생성자를 Private 로 해야하고 혹은 enum타입을 통해 만들면 좋다.
 - 생성자를 private 로 만들어서 해당 클래스 외부에서 따로 생성하지 못하도록 해야함
@@ -137,7 +135,7 @@ ___
           }
           {% endhighlight %}
 - enum 방식에 싱글톤은 널리 적용되어 있지 않다. 개인적으로도 Serialize 문제가 아니라면 구지 사용할 필요가 없다고 생각된다.
-___
+
 
 ### ITEM4 : PRIVATE 생성자로 인스턴스를 생성할수 없게하라.
 - java.lang.math 나 java.util.array 같은 util 클래스는 인스턴스가 생성되도록 하면 안되므로 생성자를 piravte 로 선언하면 인스턴스가 생성되는것을 막을수 있다.
@@ -154,7 +152,7 @@ ___
     }
     {% endhighlight %}
 
-___
+
 
 ### ITEM5 : 필요없는 오브젝트가 생성되는것을 피해라
 - Immutable 객체는 항상 재사용이 가능함!!
@@ -180,7 +178,7 @@ ___
     }
     {% endhighlight %}
 
-___
+
 
 ### ITEM6 : 쓸모없는 Object refreences 를 없애라
 - 자바는 C/C++ 과는 다르게 더이상 참조되지 않으면 객체들이 사용하던 메모리가 자동으로 회수된다. **마법은 아니므로 주의!**
@@ -196,7 +194,7 @@ ___
 - 캐쉬 상황에서 메모리 릭이 발생하기 쉽다. 캐쉬 외부에 캐쉬의 키에 대한 참조가 있을 동안만 캐시에 저장된 항목이 유효한 캐쉬를 구현해야한다. WeakHasMap을 캐시로 사용하면 key값의 외부 참조에 따라 결정되도록 할수있다. (*weak reference*)
 - 콜백과 리스너에서도 메모리릭이 발생하기 쉽다. 명시적으로 콜백을 deregister 시키지 말고 weak reference 를 사용하거나 키값들을 weakHashMap 을 사용해 저장하라.
 
-___
+
 
 ### ITEM7 : finalizer 사용하지 마라.
 - Java의 finalizer 는 C++ 의 소멸자가 아니다!

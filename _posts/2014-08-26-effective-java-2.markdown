@@ -1,13 +1,11 @@
 ---
 layout: post
 title:  "Effective Java 모든 객체에 공통적인 메소드"
-date:   22014-08-26 18:07:40 +0900
+date:   2014-08-26 18:07:40 +0900
 categories: Java
 tags: Java effective-java
-redirect_from: "/2013/05/20/how-to-add-distance-to-coordinates/"
 description: Modifying latitude and longitude with a distance.
 ---
-
 
 ## Effective-Java 모든 객체에 공통적인 메소드 (8~12)
 
@@ -42,7 +40,7 @@ description: Modifying latitude and longitude with a distance.
 - equals 메소드의 인자타입을 Object 대신에 다른 타입으로 바꾸지 말자! 무조건 기본형을 오버라이딩 하자. 변수타입을 바꿔 오버로드 하면 가끔은 성능향상을 가져올수 있지만 코드만 복잡하게 할 뿐이다. 이런 실수를 줄이기 위해 equals 함수에는 무조건 @Override 키워드를 사용해 주는것이 좋다.
 
 <!-- more -->
-___
+
 
 ### ITEM9 : eqauls 메소드를 오버리이드 할때는 hashCode 메소드도 항상 같이 오버라이드 하자
 - equals 를 오버라이드 할떄 hashCode 를 적절하게 오버라이드 해주지 않으면 HashMap HashSet HashTable 을 포함 하는 모든 hash 기반의 컬랙션들과 우리 클래스를 같이 사용할 때 적절하게 동작하지 않을수있다! (해쉬 기반 콜랙션들은 hashCode 함수로 키값을 사용한다)
@@ -85,14 +83,14 @@ ___
             return result;
        }
        {% endhighlight %}
-___
+
 
 ### ITEM10 : toString 메소드는 항상 오버라이드 하자
 - java.lang.Object 클래스는 toString 메소드를 구현하고 있다. at 과 16진수형태로 해쉬코드가 붙는다!
 - toString 은 간결하며 읽기 쉬워야 한다. 모든 서브 캘르스들은 이 메소드를 오버라이드 할것을 권한다!
 - 표현형식의 규정 여부와는 무관하게 아무튼 그의도를 명쾌하게 문서화 해야한다.
 
-___
+
 
 ### ITEM 11 : clone 메소드는 신중하게 오버라이드 하자
 - Cloneable 인터페이스는 복제를 허용하는 객체라는것을 알리는 목적으로 사용하는 믹스인 인터페이스 이다. 하지만 자신이 clone 메소드를 가지고 있지 않으며 Object 클래스의 clone 메소드는 사용에 제약이 있다. (아무런 추상 메소드를 가지고 있지 않다)
@@ -127,7 +125,7 @@ ___
 - 고급 프로그래머가 아니라면 clone 을 사용하지 않고 new TreeSet(s) 형태처럼  clone 없이 변환 생성자를 사용하는것이 좋다.
 - Cloneable 은 배열 복제 정도아니면 되도록이면 clone 메소드를 전혀 오버라이드 하지 않고 호출도 안하는게 좋다.
 
-___
+
 
 ### ITEM 12 : Comparable 인터페이스의 구현을 고려하자
 - compareTo 는 java.lang.object 에 구현되어있는게 아니라 Comparable 인터페이스에 있다.
