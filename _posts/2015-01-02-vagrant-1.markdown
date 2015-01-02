@@ -137,3 +137,5 @@ end
 - vagrant ssh : ssh 접속
 - vagrant status
 
+### Reference
+[Vagrant Docs](https://docs.vagrantup.com/v2/)
