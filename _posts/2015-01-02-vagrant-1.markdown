@@ -4,7 +4,8 @@ title:  "Vagrant 1.기본 설정 & 기본 명령어"
 date:   2015-01-01 18:07:40 +0900
 categories: Linux
 tags: Vagrant Linux
-description: Vagrant 기본 설정 & 기본 명령어
+redirect_from: "{{page.url}}"
+description: "Vagrant 기본 설정 & 기본 명령어"
 ---
 
 ## Vagrant란?

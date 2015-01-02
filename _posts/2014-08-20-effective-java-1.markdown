@@ -2,10 +2,9 @@
 layout: post
 title: "Effective Java 1.객체의 생성과 호출"
 date: 2014-08-20 18:07:40 +0900
-comments: true
 categories:
-redirect_from: "/2013/05/20/how-to-add-distance-to-coordinates/"
-description: "Effective-Java 객체의 생성과 호출"
+redirect_from: "{{page.url}}"
+description: Effective-Java 객체의 생성과 호출
 ---
 
 ## Effective-Java 객체의 생성과 호출 (1~7)
