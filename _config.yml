@@ -20,3 +20,5 @@ title: Rangken programming blog
 markdown: kramdown
 
 gems: ["jekyll-redirect-from", "emoji_for_jekyll", "jekyll-sitemap"]
+
+# gem install jekyll-redirect-from emoji_for_jekyll jekyll-sitemap
