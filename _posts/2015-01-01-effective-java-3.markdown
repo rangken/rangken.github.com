@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Effective Java 3.클래스와 인터페이스"
+title:  "Effective Java 4장 클래스와 인터페이스"
 date:   2015-01-01 18:07:40 +0900
 categories: Java
 tags: Java effective-java
@@ -41,16 +41,16 @@ description: 클래스와 인터페이스 (13~21)
           - 참조 자체는 변경할수 없지만 참조 대상 객체는 변경 할 수 있으므로 문제가 된다.
           - public static final 배열 필드를 두거나 배열 필드를 반환하는 접근자를 정의하면 안된다.
 
-          {% highlight java linenos %}
-          public static final Thing[] VALUES={..}; // VALUES 는 변하지 않지만 VALUE 안에 데이터가 변할수가 있다.
-          // 해결책1 : 수정 불가능한 List 리턴
-          private static final Thingp[ PRIVATE_VALUES = {..};
-          public static final List<Thing> VALUES=Collections.unmodifiableList(Arrays.asList(PRIVATE_VALUES));
-          // 해결책2 : 복사 반환
-          public static final Thing[] values(){
-               return PRIVATE_VALUES.clone();
-          }
-          {% endhighlight %}
+{% highlight java linenos %}
+public static final Thing[] VALUES={..}; // VALUES 는 변하지 않지만 VALUE 안에 데이터가 변할수가 있다.
+// 해결책1 : 수정 불가능한 List 리턴
+private static final Thingp[ PRIVATE_VALUES = {..};
+public static final List<Thing> VALUES=Collections.unmodifiableList(Arrays.asList(PRIVATE_VALUES));
+// 해결책2 : 복사 반환
+public static final Thing[] values(){
+     return PRIVATE_VALUES.clone();
+}
+{% endhighlight %}
 - 접근 권한은 가능한 낮추라. 최소한의 public API를 설계한 다음 다른 모든 클래스 인터페이스 멤버는 API 에서 제외해라 public static final 필드를 제외한 어떤 필드도 public 으로 선언 금지, public static final 필드가 참조하는 객체는 변경 불가능으로 해라.
 
 
@@ -297,7 +297,7 @@ class Retangle extends Figure{
 ### ITEM 21 : 전략을 표현하고 싶을 때는 함수 객체를 사용하라
 - 프로그래밍 언어 가운데 함수 포인터, 대리자, 람다 표현식 처럼 특정 함수를 호출할 수 있는 능력을 저장하고 전달 할수 있는 것들이 있다.
      - 비교자 함수를 통해 정렬을 함수를 한다. 전략패턴이라고 부른다.
-- ~~자바는 함수포인터를 지원하지 않는다~~ java8 부터 지원
+- ~~자바는 함수포인터를 지원하지 않는다~~  java8 부터 지원
 
 {% highlight java linenos %}
 // 스트링을 비교하는 전략 클래스
@@ -330,34 +330,36 @@ class StringLengthComparator implements Comparator<String>{
 - 비정적 멤버 클래스
      - 바깥 클래스 객체와 자동으로 연결, 비정적 멤버 클래스 안에서는 바깥 클래스의 메서드를 호출할 수도 있고, this를 통해 바깥객체에 대한 참조를 획득할수도 있다.
 
-     {% highlight java linenos %}
-     class Envelope{
-          void x(){ System.out.println("hello")}
-          class Enclosure{
-               void x() {Envelop.this.x(); /*한정됨*/}
-          }
-     }
-     {% endhighlight %}
-     - 중첩된 클래스의 객체가 바깥 클래스 객체와 독립적으로 존재할수 있도록 하려면 정적 멤버 클래스로 선언해야한다. **비정적 멤버 클래스는 바깥 클래스의 객체없이는 존재할 수 없다.**
+{% highlight java linenos %}
+class Envelope{
+    void x(){ System.out.println("hello")}
+    class Enclosure{
+         void x() {Envelop.this.x(); /*한정됨*/}
+    }
+}
+{% endhighlight %}
+
+- 중첩된 클래스의 객체가 바깥 클래스 객체와 독립적으로 존재할수 있도록 하려면 정적 멤버 클래스로 선언해야한다. **비정적 멤버 클래스는 바깥 클래스의 객체없이는 존재할 수 없다.**
      - 비정적 멤버 클래스의 객체가 만들어 지는 순간 바깥 클래스와 연결이 생긴다.
           - 바깥 클래스의 메소드에서 비정적 클래스를 생성하는 순간
           - 드물게 enclosingInstance.new MemberClass(args) 처럼 만들기도 한다.
           - Adapter 를 정의할때 많이 사용한다
 
-          {% highlight java linenos %}
-          public class MySet<E> extends AbstractSet<E>{
-               public Iterator<E> iterator(){
-                    return new MyIterator();
-               }
-               // 비정적적 멤버 클래스
-               // MySet 에 클래스에 접근이 가능해야하므로
-               private class MyIterator implements Iterator<E>{
-                    ...
-               }
-          }
-          {% endhighlight %}
-     - 바깥 클래스 객체에 접근할 필요가 없는 멤버 클래스를 정의할때는 항상 선언문앞에 static 을 붙여서 정적 멤버 클래스로 만들어라.
-     - 정적 클래스는 바깥객체에 참조를 유지하므로 시간 메모리 공간 요구량이 늘어나고 가비지 컬랙션도 힘들어진다.
+{% highlight java linenos %}
+public class MySet<E> extends AbstractSet<E>{
+     public Iterator<E> iterator(){
+          return new MyIterator();
+     }
+     // 비정적적 멤버 클래스
+     // MySet 에 클래스에 접근이 가능해야하므로
+     private class MyIterator implements Iterator<E>{
+          ...
+     }
+}
+{% endhighlight %}
+
+- 바깥 클래스 객체에 접근할 필요가 없는 멤버 클래스를 정의할때는 항상 선언문앞에 static 을 붙여서 정적 멤버 클래스로 만들어라.
+- 정적 클래스는 바깥객체에 참조를 유지하므로 시간 메모리 공간 요구량이 늘어나고 가비지 컬랙션도 힘들어진다.
 
 - 익명 클래스
      - 함수 객체를 정의할떄 널리쓰인다.
