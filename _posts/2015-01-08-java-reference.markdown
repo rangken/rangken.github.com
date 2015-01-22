@@ -55,6 +55,45 @@ System.GC.WaitForFullGCComplete(); // 가비지 정리
 // 메모리 정리후 fruit - Apple(안사라짐) target - null(약한참조한건 사라짐)
 {% endhighlight %}
 
+### Android Activity 전달
+
+{% highlight java linenos %}
+package com.example.weaktest;
+
+import java.lang.ref.WeakReference;
+
+public class TestSingleton {
+    public static TestSingleton instance = null;
+    
+    // Strong 하게 연결됨 - 엑티비티가 Finish 되도 계속 참조하므로 메모리에서 안사라짐 
+    public TestActivity tActivity;
+    public void setTestActivity(TestActivity t){
+        tActivity = t;
+    }
+    public TestActivity getTestActivity(){
+        return tActivity;
+    }
+    
+    // Weak 하게 연결됨 - 액티비티가 Finish되면 tActivity2.get() 은 NULL
+    private WeakReference<TestActivity> tActivity2;
+    public void setTestActivity2(TestActivity t){
+        tActivity2 = new WeakReference<TestActivity>(t);
+    }
+    public TestActivity getTestActivity2(){
+        return tActivity2.get();
+    }
+    public static TestSingleton getInstance(){
+        if(instance == null) {
+            instance = new TestSingleton();
+        }
+        return instance;
+    }
+}
+{% endhighlight %}
+- 엑티비티를 싱글톤에 잠시 저장 시키는 용도라면 Strong 하게 연결 되면 안되고 Weak 하게 연결 되어야 한다.
+    - Weak 하게 연결하면 엑티비티가 *finish()* 된후에 GC 가 실행되면  *getTestActivity2()* 를 호출하면 **NULL POINTER 가 넘어오게 된다.**
+    - Strong 하게 연결되면 엑티비티가 *finish()* 된후에도 계속 메모리 참조를 하므로 **GC 에 대상이 되지 않는다**
+
 
 ### TODO
 - WeakHashMap : ReferenceQueue
