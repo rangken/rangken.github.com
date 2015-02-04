@@ -1,0 +1,304 @@
+---
+layout: post
+title:  "Java sun.misc.Unsafe"
+date:   2015-02-04 12:30:40 +0900
+categories: JAVA
+tags: JAVA
+description: sun.misc.Unsafe API
+---
+
+### java concurreny 는 어떻게 동기화를 구현하고 있을까!?
+- sun.misc.Unsafe 의 CAS(Compare-And-Swap) 을 통해 동기화를 구현하고 있다.
+- [CAS - http://en.wikipedia.org/wiki/Compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap)
+
+### sun.misc.Unsafe
+- 자바는 safe 한 프로그래밍 언어이고 프로그래가 메모리와 관련된 이상한 실수를 하지 않도록 해준다. 하지만 의도적으로 그런 실수들을 하도록 만드는 방법이있다. 그것은 Unsafe 클래스를 사용하는 것이다.
+    - JDK 내부적으로만 사용하지만 안전하지 않기 때문에 Userland 에서는 사용하지 않도록 권장하는 api 인것 같다.
+- _sun.misc.Unsafe_ 는 public API 이다. 
+
+### Unsafe instantiation
+- Unsafe object 는 private 생성자를 가지고 있으므로 _new Unsafe()_ 를 통해 생성할 수가 없다. 
+- _getUnsafe()_ 라는 static 생성함수가 있지만 getUnSafe 를 호출 하려고 하면 SecurityException 이 일어나게 되있다. 이 메소드는 오직 _trusted code_ 에서만 사용 가능하도록 되어있다.
+
+
+{% highlight java linenos %}
+public static Unsafe getUnsafe() {
+    Class cc = sun.reflect.Reflection.getCallerClass(2);
+    if (cc.getClassLoader() != null)
+        throw new SecurityException("Unsafe");
+    return theUnsafe;
+}
+{% endhighlight %}
+
+- bootclasspath 를 지정해줘서 Unsafe 를 사용하도록 해줄수 있다.
+
+> java -Xbootclasspath:/usr/jdk1.7.0/jre/lib/rt.jar:. test
+
+
+### Unsafe API 
+- 105 가지의 함수들이 들어있다.
+- Info : low-level 의 메모리 정보를 리턴한다.
+    - addressSize
+    - pageSize
+- Objects : object 들의 메소드와 필드를 수정할수 있도록 해준다.
+    - allocateInstance
+    - objectFieldOffset
+- Classes : class 들의 메소드와 static 필드를 수정할수 있도록 해준다
+    - staticFieldOffset
+    - defineClass
+    - defineAnonymousClass
+    - ensureClassInitialized
+- Arrays. Arrays 수정
+    - arrayBaseOffset
+    - arrayIndexScale
+
+- Synchronization : low-level 의 원자성 도구제공
+    - monitorEnter
+    - tryMonitorEnter
+    - monitorExit
+    - compareAndSwapInt
+    - putOrderedInt
+- Memory : 직접적으로 메모리에 접근하는 메소드
+    - allocateMemory
+    - copyMemory
+    - freeMemory
+    - getAddress
+    - getInt
+    - putInt
+
+
+### 재미있는 사용 케이스
+
+#### Avoid initialization
+- 생성자 호출 없이 object 생성
+
+
+{% highlight java linenos %}
+class A {
+    private long a; // 초기화 안된 변수
+
+    public A() {
+        this.a = 1; // 생성자에서 초기화
+    }
+
+    public long a() { return this.a; }
+}
+
+A o1 = new A(); // 생성자 호출
+o1.a(); // prints 1
+
+A o2 = A.class.newInstance(); // reflection 으로 생성 -> 생성자 호출됨
+o2.a(); // prints 1
+
+A o3 = (A) unsafe.allocateInstance(A.class); // unsafe -> 생성자 호출 안됨
+o3.a(); // prints 0 
+{% endhighlight %}
+
+#### Memory Conccuption
+- 직접적으로 메모리 수정을 통해 필드값 변경
+
+
+{% highlight java linenos %}
+class Guard {
+    private int ACCESS_ALLOWED = 1;
+
+    public boolean giveAccess() {
+        return 42 == ACCESS_ALLOWED; // 무조건 false 를 리턴하는 메소드
+    }
+}
+Guard guard = new Guard();
+guard.giveAccess();   // false
+
+// bypass
+Unsafe unsafe = getUnsafe();
+Field f = guard.getClass().getDeclaredField("ACCESS_ALLOWED");
+unsafe.putInt(guard, unsafe.objectFieldOffset(f), 42); // 강제로 memory corruption
+
+guard.giveAccess(); // true
+{% endhighlight %}
+- _unsafe.putInt_ 를 통해 직접 메모리에 지정된 offset 을 통해 값을 수정할수 있다. ACCESS_ALLOWED 뒤에 추가적인 필드가 있다면 unsafe.putInt(guard, 16+unsafe.objectFieldOffset(f), 42) 를 통해 똑같이 수정 가능하다.
+
+
+#### Concurrency
+_Unsafe.compareAndSwap_ 메소드는 atmoic 하다. 높은 수준에 lock-free 자료구조를 구현할때 사용된다! JDK 안에 ConcurrentHashMap AtomicInteger 등등이 Unsafe 를 통해 구현 되어있다.
+
+- Test!
+
+{% highlight java linenos %}
+interface Counter {
+    void increment();
+    long getCounter();
+}
+
+// CounterClient.java 간단한 Counter Thread 
+class CounterClient implements Runnable {
+    private Counter c;
+    private int num;
+
+    public CounterClient(Counter c, int num) {
+        this.c = c;
+        this.num = num;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < num; i++) {
+            c.increment();
+        }
+    }
+}
+
+// main.java
+int NUM_OF_THREADS = 1000;
+int NUM_OF_INCREMENTS = 100000;
+ExecutorService service = Executors.newFixedThreadPool(NUM_OF_THREADS);
+Counter counter = ... // 테스트할 counter
+long before = System.currentTimeMillis();
+for (int i = 0; i < NUM_OF_THREADS; i++) {
+    service.submit(new CounterClient(counter, NUM_OF_INCREMENTS));
+}
+service.shutdown();
+service.awaitTermination(1, TimeUnit.MINUTES);
+long after = System.currentTimeMillis();
+System.out.println("Counter result: " + c.getCounter());
+System.out.println("Time passed in ms:" + (after - before));
+{% endhighlight %}
+
+
+- 동기화가 구현안된 Counter 를 구현한다면 -> 빠르지만 틀린결과가 나온다.
+
+{% highlight java linenos %}
+class StupidCounter implements Counter {
+    private long counter = 0;
+
+    @Override
+    public void increment() {
+        counter++;
+    }
+
+    @Override
+    public long getCounter() {
+        return counter;
+    }
+}
+// Counter result: 99542945 -> 100000000 값이 나와야 하는데 틀린값이 나온다. 동기화를 안했기 때문
+// Time passed in ms: 679 -> 빠른 결과
+{% endhighlight %}
+
+- synchroized 로 동기화 함수 만들면 -> 올바른 결과, 느린속도
+
+{% highlight java linenos %}
+// 언어 차원에서 제공되는 synchrozied 키워드 사용
+class SyncCounter implements Counter {
+    private long counter = 0;
+
+    @Override
+    public synchronized void increment() {
+        counter++;
+    }
+
+    @Override
+    public long getCounter() {
+        return counter;
+    }
+}
+// Counter result: 100000000 -> 올바른 결과
+// Time passed in ms: 10136 -> 동기화 하지 않았을때보다 15배정도 느리다.
+{% endhighlight %}
+
+- lock 를 통해 동기화를 조절한다면 -> 올바른 결과, 느르지만 좀더 빠름
+
+{% highlight java linenos %}
+// lock 은 AbstractQueuedSynchronizer Queue 를 사용하고있고 AbstractQueuedSynchronizer는 내부적으로 Unsafe 로 구현됨
+class LockCounter implements Counter {
+    private long counter = 0;
+    private WriteLock lock = new ReentrantReadWriteLock().writeLock();
+
+    @Override
+    public void increment() {
+        lock.lock();
+        counter++;
+        lock.unlock();
+    }
+
+    @Override
+    public long getCounter() {
+        return counter;
+    }
+}
+// Counter result: 100000000
+// Time passed in ms: 8065 -> 좀더 빨리짐
+{% endhighlight %}
+
+- Concrruent Atomic 자료 구조인 AtomicLong 사용 -> 좀더 빠름
+
+{% highlight java linenos %}
+// AtomicLong 도 내부적으로 Unsafe 를 사용하고 있다.
+class AtomicCounter implements Counter {
+    AtomicLong counter = new AtomicLong(0);
+
+    @Override
+    public void increment() {
+        counter.incrementAndGet();
+    }
+
+    @Override
+    public long getCounter() {
+        return counter.get();
+    }
+}
+// Counter result: 100000000
+// Time passed in ms: 6454
+{% endhighlight %}
+
+- 직접 _CompareAndSwap_ 사용 -> 가장 빠르다.
+
+{% highlight java linenos %}
+class CASCounter implements Counter {
+    private volatile long counter = 0; // 무한 루프에 빠지는것을 방지, 컴파일 체적화를 수행하지않음
+    private Unsafe unsafe;
+    private long offset;
+
+    public CASCounter() throws Exception {
+        unsafe = getUnsafe();
+        offset = unsafe.objectFieldOffset(CASCounter.class.getDeclaredField("counter"));
+    }
+
+    @Override
+    public void increment() {
+        long before = counter;
+        while (!unsafe.compareAndSwapLong(this, offset, before, before + 1)) {
+            before = counter;
+        }
+    }
+
+    @Override
+    public long getCounter() {
+        return counter;
+    }
+}
+// Counter result: 100000000
+// Time passed in ms: 6454
+{% endhighlight %}
+
+- compareAndSwapLong > Atomic > Lock > synchroized
+- compareAndSwapLong (CAS) 의 동작 방식 
+    - 어떤 상태값을 가지고있다
+    - 그것의 복사본을 생성한다.
+    - 그것을 수정하려고한다.
+    - 이미 수정이 되어있지 않다면 수정한다. 수정이 되어있다면 실패한다.
+        - 실패했다면 반복한다.
+    
+- 좀더 직접적으로 CAS 를 사용할수록 성능 향상을 가져올수있다.
+
+
+#### 결론
+- 좀더 성능향상을 가져올수 있지만 **Unsafe 는 직접적으로 사용하지 말자**
+    - 컴파일 하더라도 warning 메세지가 나온다.
+
+
+#### Reference
+- [Java Magic. Part 4: sun.misc.Unsafe](http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/)
+
+
+
