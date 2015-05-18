@@ -11,8 +11,10 @@ tags: [Git]
 
 ##GIT 소개
 Git 이란 프로그램 등의 소스 코드 관리를 위한 분산 버전 관리 시스템이다. 쉽게 말하자면 여러 개발자들이 공동으로 개발 할때 소스를 관리 하기 위한 프로그램 쯤 으로 생각하면 되겠다. 요즘은 오픈소스들이 대부분 GitHub 으로 제공되면서 Git이 점점더 활용되고 있다.  물론 [리누스 토발즈](https://github.com/torvalds)라는 스타 개발자가 개발한 거라 더더욱 주목 받는 점도 있는것 같다.  ( 리누즈 토발즈는 리눅스를 만든 핀란드 천재 개발자 )
+
 ![OCTO Logo](/assets/images/git_octo_logo.png)
 ![BIGBUCKET Logo](/assets/images/bigbucket_logo.png)
+
 Git 은 리눅스를 이용해 서버를 세팅해도 되지만 여러가지 쉽지 않은 문제로 Github 이나 BitBucket 같은 SaaS 서비를 사용하는 편이다.
 GitHub은 Public 프로젝트는 꽁짜지만 Private 프로젝트의 경우 유료이며 BitBucket은 Public Private 와 상관없이 Collaborator 5명까지는 꽁짜이다.
 Github이 대세긴 하지만 Bitbucket 도 JIRA를 만든 회사로써 지속적인 업그레이드 중이라 많은 발전이 있을거라고 예상이된다~~
@@ -38,8 +40,8 @@ git config --list; // 먼저 현재 설정된 config list 들을 출력
 git config --global user.name "James Kim" // git 을 사용할때 사용할 자기 이름을 설정
 git config --global user.email rangken@gmail.com // 메일설정
 // 만약 github 을 사용한다면
-git config --global github.user "Rangken" // Git 에 표시할 이름
-git config --global github.email "rangken@gmail.com" // Git에 표시할 이메일
+git config --global github.user "Rangken" // GitHub 에 표시할 이름
+git config --global github.email "rangken@gmail.com" // GitHub 에 표시할 이메일
 {% endhighlight %}
 
 ## Git Init

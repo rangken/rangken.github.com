@@ -18,18 +18,16 @@ git status 명령어를 이용해 해당 파일들의 Status 를 알수 있다.
 > staged : Commit 을 할 수 있는 상태이다.<br>
 
 
-Git init 으로 git 프로젝트를 만든 후 파일을 하나 만든 상태에서
-git status 을 한다면 <br>
-`nothing added to commit but untracked files present (use "git add" to track)` <br>
-상태인것을 확인 할 수 있다. 이상태는 해당 파일이 untracked 상태라는 것을 알려주고 git add 명령어를 통해 파일을 unmodified 상태로 바꾸라는 것이다.<br>
-> git add .  <br>
-명령어로 tracked 상태로 변경해준다.
+Git init 으로 git 프로젝트를 만든 후 파일을 하나 만든 상태에서 git status 을 한다면 
+`nothing added to commit but untracked files present (use "git add" to track)`
+상태인것을 확인 할 수 있다. 이상태는 해당 파일이 untracked 상태라는 것을 알려주고 git add 명령어를 통해 파일을 unmodified 상태로 바꾸라는 것이다.
 
-그후에 status를 확인하면<br>
-`Changes to be committed:` <br>
+> git add . 
+명령어로 tracked 상태로 변경해준다. 그후에 status를 확인하면 `Changes to be committed:` 
 상태로 변경 된다. 해당 상태는 커밋하기 위한 상태이다.
-이제 <br>
+
 > git commit -m "first commit"
+
 으로 커밋을 해준다.
 그후 status을 확인하면 <br>
 `nothing to commit (working directory clean)`
@@ -65,6 +63,7 @@ git add option 을 넣어서 각 파일의 상태를 변경하는 명령어 이�
 ( 단 추가된 파일은 add 하지 않는다)<br>
 `git add -A`
  git add . 와 git add - u 를 동시에 실행 한 것과 동일한 명령어 이다. 삭제된 파일이 있을경우 이명령어를 통해 add 를 한다.
+
 ## Git commit
  git commit 은 git 에 가장 기본이 되는 명령어 이다. git은 commit 단위로 변화를 저장하기 때문에 git commit 은 git add 와 다르게 신경써서 해주는 것이 좋다.
  너무 자주 할 경우 commit 이 너무 많아 복잡해 지며 너무 드물게 할경우 commit 된 내용을 잘 알 수 없다. 해당 commit 으로 상태를 돌릴 수 있으므로 어느 특정 작업이 완벽히 완료된 후에 commit 하는 것이 좋겠다. <br>
@@ -77,6 +76,7 @@ git add option 을 넣어서 각 파일의 상태를 변경하는 명령어 이�
   -m 옵션과 같이 사용할 할 수 있다. <br>
 `git commit --amend`
   이전에 add 된 목록들을 이전 commit 에 포함해서 다시 commit 을 수행해준다. <br>
+
 ## Checkout & Reset
 `git reset HEAD readme`
   모르고 add 해서 Change to be committd 상태가 되었다면 다시 Staged 된 상태를 unStaged 상태로 변경 <br>

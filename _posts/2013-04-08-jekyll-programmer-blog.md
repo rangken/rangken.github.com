@@ -53,7 +53,7 @@ gem install jekyll
 # markdown RDiscount
 gem install rdiscount
 {% endhighlight %}
-<br>
+
 ## Dependencis & Pygments 설치
 Jekyll 에 종속적인 패키지가 몇개 있다.gem을 통해 설치하는게 좋다!<br>
 [Classifier](https://github.com/cardmagic/classifier)
@@ -61,7 +61,7 @@ Jekyll 에 종속적인 패키지가 몇개 있다.gem을 통해 설치하는게
 [Kramdown](https://github.com/gettalong/kramdown)
 [Liquid](https://github.com/Shopify/liquid)
 [Maruku](https://github.com/bhollis/maruku)
-<br>
+
 Kramdown Maraku RDiscount 중에 한개만 설치하면 되고
 Liquid - template 엔진
 Directory Watcher - Posting 한 글을 수정하면서 계속 확인 할 수 있게 해줌
@@ -170,6 +170,7 @@ Server : github.com 이라고 나오는 것을 확인 할 수 있다! <br>
 해당 Jekyll 프로젝트를 master 브랜치에 업로드 할 경우
 http://아이디.github.io 로 들어가면 확인 할 수 있다. ( 약 10분에 딜레이가 있다!)
 자신의 도메인으로 변경도 가능하다!
+
 ## TroubleShooting
 포스팅을 수정하면서 계속 브라우져를 통해 확인할수 있도록 하는 package인 Directory Watcher 가 작동하지 않을때가 있다.
 >sudo gem uninstall directory_watcher && sudo gem install directory_watcher -v 1.4.1
