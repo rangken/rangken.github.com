@@ -34,7 +34,7 @@ for (String s : map.keySet()) {
 - 내부적으로 RedBlack Tree로 저장됨, 키값에 대한 Compartor 구현으로 정렬 순서를 바꿀수 있다.
 
 {% highlight java linenos %}
-Map<String, String> map = Maps.newHashMap();
+Map<String, String> map = Maps.newTreeMap();
 map.put("c", "1");
 map.put("a", "1");
 map.put("b", "1");
@@ -52,7 +52,7 @@ for (String s : map.keySet()) {
 - 링크드 리스트로 저장됨
 
 {% highlight java linenos %}
-Map<String, String> map = Maps.newHashMap();
+Map<String, String> map = Maps.newLinkedHashMap();
 map.put("c", "1");
 map.put("a", "1");
 map.put("b", "1");
