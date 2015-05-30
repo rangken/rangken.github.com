@@ -81,7 +81,7 @@ callbacks(:starting => Proc.new{ puts "Staring"},
 {% endhighlight %}
 위와 같이 2개 이상의 clouser를 사용 할 수도 있다.
 Block 과 Proc을 요약하자면
-
+w
 - Block : 메소드를 여러개로 나누면서 서로 상호작용 하도록 만들고 싶다면
 - Block : Database migration 처럼 여러 표현을 자동적으로 동작 시키고 싶다면
 - Proc : 블락을 여러번 재사용 하고 싶다면
@@ -201,6 +201,7 @@ FILTER = {
 }
 FILTER.detect { |proc,| proc[input]}.last # 필터에 걸린 마지막 찾음!
 {% endhighlight %}
+
 ## Refreence
 [Robeert Sosinski](http://www.robertsosinski.com/2009/01/11/the-difference-between-ruby-symbols-and-strings/)
 [Closures In Ruby](http://innig.net/software/ruby/closures-in-ruby)

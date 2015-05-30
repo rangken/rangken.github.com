@@ -1,0 +1,74 @@
+---
+layout: post
+title:  "Java Map - HashMap, TreeMap, LinkedHashMap 차이"
+date:   2015-05-31 00:00:00 +0900
+categories: JAVA
+tags: JAVA
+description: Java Map TreeMap, HashMap, LinkedHashMap
+---
+
+### Java Map
+자바에는 여러 Map 이 있다. 생각없이 아무거나 쓰지말고 차이를 알아보자
+
+
+#### HashMap
+- 내부적으로 **Entry<K,V>[]** Entry 의 array 로 되어 있다. 해당 array 에 index 는 내부 해쉬 함수를 통해 계산된다.
+    - String 은 **sun.misc.Hashing.stringHash32** 함수를 사용하고 일반 Object는 내부 hashcode 함수와 비트연산으로 계산되어진다.
+
+{% highlight java linenos %}
+Map<String, String> map = Maps.newHashMap();
+map.put("c", "1");
+map.put("a", "1");
+map.put("b", "1");
+map.put("k", "1");
+for (String s : map.keySet()) {
+    System.out.println(s);
+}
+// b, c, a, k 출력
+{% endhighlight %}
+
+- 내부 hash 값에 따라서 키순서가 정해지므로 특정 규칙없이 출력됨!
+
+
+#### TreeMap
+- 내부적으로 RedBlack Tree로 저장됨, 키값에 대한 Compartor 구현으로 정렬 순서를 바꿀수 있다.
+
+{% highlight java linenos %}
+Map<String, String> map = Maps.newHashMap();
+map.put("c", "1");
+map.put("a", "1");
+map.put("b", "1");
+map.put("k", "1");
+for (String s : map.keySet()) {
+    System.out.println(s);
+}
+// a, b, c, k 출력
+{% endhighlight %}
+
+- 키값이 알파벳 순서대로 정렬된다. 트리에 저장되므로 키값은 일정 기준으로 정렬된 상태로 출력된다.
+
+
+#### LinkedHashMap
+- 링크드 리스트로 저장됨
+
+{% highlight java linenos %}
+Map<String, String> map = Maps.newHashMap();
+map.put("c", "1");
+map.put("a", "1");
+map.put("b", "1");
+map.put("k", "1");
+for (String s : map.keySet()) {
+    System.out.println(s);
+}
+// c, a, b, k 출력
+{% endhighlight %}
+- 키값은 입력 순서대로 출력되어서 나온다.
+
+### 결론
+- 특별한 이유가 없다면 검색 성능이 좋은(O(1)) **HashMap** 을 사용하자
+- 키값이 일정한 수준대로 iterate 하려고 한다면 TreeMap 을 사용하자. 하지만 랜덤 접근에 대해서는 O(logn) 성능을 지니므로 많은 데이터를 넣을경우 좋지 않은 성능이 나올수 있다.
+- 입력 순서가 의미있다면 LinkedHashMap 을 사용하자. 랜덤 접근에 대해 O(n) 성능을 지니므로 많은 데이터를 입력할 경우 사용하지 않는것이 좋겠다.
+
+
+
+
