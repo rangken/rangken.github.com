@@ -461,9 +461,10 @@ public enum ExtendedOperation implements Operation {
     }
 }
 {% endhighlight %}
-- _<T extends Enum<T> & Operation> void test(Class<T> opSet, double x, double y)_
+
+- _\<T extends Enum<T> & Operation> void test(Class<T> opSet, double x, double y)_
     - 자료형의 class 리터럴을 사용, class 리터럴은 한정적 자료형 토큰 역활을 한다.
-    - **<T extends Enum<T> & Operation>** : Class 객체가 나타내는 자료형이 enum 자료형인 동시에 Opertion 하위 자료형이 되어야한다. (Enum 자체는 상속이 안되고 같은 interface 를 상속하는 방식이므로 이런 한정적 방법이 필요함)
+    - **\<T extends Enum\<T\> & Operation\>** : Class 객체가 나타내는 자료형이 enum 자료형인 동시에 Opertion 하위 자료형이 되어야한다. (Enum 자체는 상속이 안되고 같은 interface 를 상속하는 방식이므로 이런 한정적 방법이 필요함)
 - _void test2(Collection<? extends Operation> opSet, double x, double y)_
     - EnumSet 이나 EnumMap 을 사용할수 있는 유연성이 가능하다.
     - **하지만 한정적 와일드 카드 자료형 특성상 특정 operation을 직접 수행할수는 없다.**, 실제로 연산을 수행할수 있으르면 한정적 자료형 토큰으로 사용하자!

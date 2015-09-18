@@ -23,8 +23,8 @@ description: 제네릭 (23~29)
     - 무인자 자료형(raw type) : List
     - 한정적 형인자(bunded type parameter) : \<E extends Number\>
     - 재귀적 형 한정(recursive type bound) : \<T extends Comparable\<T\>\>
-    - 한정적 와일드카드 자료형(bounded wildcard type) : List<?>
-    - 비한정적 와일드카드 자료형(unbounded wildcard type) : List<? extends Number>
+    - 비한정적 와일드카드 자료형(unbounded wildcard type) : List<?>
+    - 한정적 와일드카드 자료형(bounded wildcard type) : List<? extends Number>
     - 제네릭 메서드(generic method) : static <E> List<E> asList(E[] a)
     - 자료형 토큰(type token) : String.class
     -
