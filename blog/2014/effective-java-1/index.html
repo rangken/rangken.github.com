@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Effective Java 2장 객체의 생성과 호출</title>
+    <!-- SEO -->
+    <meta name="description" content="Effective-Java 객체의 생성과 호출">
+    <meta name="keywords" content=", "/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2014/effective-java-1/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Effective Java 2장 객체의 생성과 호출</h1>
+    <p class="post-meta">Aug 20, 2014
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <h2 id="effective-java-객체의-생성과-호출-17">Effective-Java 객체의 생성과 호출 (1~7)</h2>
+
+<h3 id="item1--기본-생성자보다-static-팩토리-메소드를-만들어라">ITEM1 : 기본 생성자보다 Static 팩토리 메소드를 만들어라.</h3>
+<ul>
+  <li>클래스의 인스턴스(instance) 을 생성하도록 하는 일반적인 방법은 public 생성자(constructor)을 제공하는 것이다.</li>
+  <li>boolean primitive 값을 가져와서 Boolean 객체 참조로 변환하여 반환하는 Static Factory</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="nc">Boolean</span> <span class="nf">valeOf</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="o">){</span>
+     <span class="k">return</span> <span class="n">b</span> <span class="o">?</span> <span class="nc">Boolean</span><span class="o">.</span><span class="na">TRUE</span> <span class="o">:</span> <span class="nc">Boolean</span><span class="o">.</span><span class="na">FALSE</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>Static Factory 장점
+    <ul>
+      <li>기본 생성자와는 다르게 메소드에 이름을 지어줄수 있다.
+        <ul>
+          <li>생성자에 전달되는 매개변수가 반환 객체를 잘 나타내지 못하기 때문에, 이름을 잘지은 static 팩토리 메소드가 더 좋음</li>
+          <li>ex) <strong>BigInteger</strong> 클래스에서 소수를 생성하는 <strong>probablePrime</strong> Static 팩토리 메소드</li>
+        </ul>
+      </li>
+      <li>매번 새로운 오브젝트를 생성하지 않아도 된다.
+        <ul>
+          <li>imutable 불변 클래스의 경우 이미 생성된 인스턴스를 다시 사용할수 있다.</li>
+          <li>ex) 싱글톤 팩토리 함수, ( <em>같은 클래스 생성으로 인해 equals 를 매번 오버라이딩 해주지 않고 그냥 == 로 비교가능함</em> )</li>
+          <li>ex) <strong>Boolean.valueOf(boolean)</strong> 함수는 매번 새로운 인스턴스를 생성하지 않는다. ( <em>new Boolean(true) 로 한다면 매번 새로운 객체를 생성할 것이다.</em> )</li>
+        </ul>
+      </li>
+      <li>자신이 반환하는 타입의 어떤 서브 타입 객체도 리턴 가능함
+        <ul>
+          <li>ex) <strong>Interface-Based framework, Java Collection Framework interface</strong> - EnumSet 크기가 커지면 내부적으로 EnumSet 을 상속시킨 JumboEnumSet 을 팩토리 메소드에서 생성해서 알아서 리턴해줌</li>
+          <li>ex) <strong>Service Provider framework</strong> 클래스가 작성되는 시점에 그 메소드로 부터 반환되는 객체의 클래스가 존재하지 않아도 된다.</li>
+        </ul>
+      </li>
+      <li>생성자에 변수 타입을 일일이 입력해주어야 하는 불편함을 줄여줄수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Strng</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;();</span>
+<span class="c1">// 아래 처럼 사용 가능하도록!</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">K</span><span class="o">,</span><span class="no">V</span><span class="o">&gt;</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="nf">newInstance</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;();</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>생성자에 호출시에 타입 추론처리는 1.6에서는 안된다. 1.8은 되나??</li>
+  <li>Static Factory 단점
+    <ul>
+      <li>인스턴스 생성을 위해 static 팩토리 메소드만 갖고 있으면서 public이나 protected 생성자가 없는 클래스의 경우는 서브 클래스를 가질 수 없다</li>
+      <li>다른 여러 스태틱 메소드랑 구별하기 쉽지 않고 코드를 읽기도 쉽지 않음 <del>javadoc 으로 문서화를 잘하고 함수명 convention 을 잘지키면됨</del></li>
+    </ul>
+  </li>
+  <li>Static Factory Convention : 아래 함수들은 Static Fatory로 사용된다고 규약을 정한다.
+    <ul>
+      <li>valueOf : 파라메터와 같은 값을 리턴하는.</li>
+      <li>of</li>
+      <li>getInstance</li>
+      <li>newInstance</li>
+      <li>getType</li>
+      <li>newType</li>
+    </ul>
+  </li>
+  <li>Static 팩토리 메소드를 먼저 고려해보고 무심코 public 생성자를 만드는 습관을 버려라.</li>
+</ul>
+
+<h3 id="item2--생성자의-매개변수가-많을때는-차라리-빌더를-만들어라">ITEM2 : 생성자의 매개변수가 많을때는 차라리 빌더를 만들어라.</h3>
+<ul>
+  <li>많은 변수를 가지면 Static Factory 나 생성자나 모든 초기화 함수를 만들어 주는데(<em>telescoping construntor</em>)는 한계가 있다.</li>
+  <li>생성자를 간단하게 만들기 위한 방법으로는 Setter 메소드를 만들어주는 <em>JavaBean</em> 패턴이 있다. 초기화를 한후에 setter 로 값을 다 넣어준다.
+    <ul>
+      <li>여러번의 메소드 호출로 나누어져 인스턴스가 생성되서 생성과정을 거치는동안 일관된 상태가 유지 되지 못함. ( <em>모든 초기화가 이루어지기전에 다른 Thread 에서 사용해버릴수도 있다</em> )</li>
+      <li>immutable 클래스를 만들수 없어진다. 즉 Thread 안정성을 유지 할수가없다. 물론 객체를 freeze 하는 함수를 사용할수 있지만 런타임 에러를 만들어 낼 가능성이 있다.</li>
+    </ul>
+  </li>
+  <li>java 1.5 이상을 쓴다면 기본 Bulder<T> 인터페이스가 존재한다.</T></li>
+  <li>빌더를 사용하면 생성자에는 사용할수없는 가변인자(<em>varargs</em>) 를 사용할수 있다.</li>
+  <li>Class 클래스에는 newInstance 라는 추상 팩토리 메소드가 있는데 newInstance 는 항상 객체가 생성될때 클래스의 매개변수가 없는 생성자를 호출하려고 한다. 만약에 그런 생성자가 클래스에 없다면 컴파일 에러가 발생하지 않고 런타임 에러(<em>Instantiation-Exception, IllegalAccessException</em>) 이 발생하므로 컴파일 시점에서 예외 검사를 어렵게 만든다. 빌더를 사용하면 이런 위험을 줄일수 있다.</li>
+  <li>빌더 패턴은 추가적으로 빌더를 생성해야 하므로 생성 비용이 드는 단점이 있다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre></td><td class="code"><pre><span class="c1">// Builder Pattern</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NutritionFacts</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">calories</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span>
+        <span class="c1">// Required parameters</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span>
+        <span class="c1">// Optional parameters - initialized to default values</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">calories</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">fat</span>           <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">carbohydrate</span>  <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">sodium</span>        <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">Builder</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">servingSize</span> <span class="o">=</span> <span class="n">servingSize</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">servings</span>    <span class="o">=</span> <span class="n">servings</span><span class="o">;</span>
+          <span class="o">}</span>
+        <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">calories</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span>
+            <span class="o">{</span> <span class="n">calories</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>      <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+        <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">fat</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span>
+            <span class="o">{</span> <span class="n">fat</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>           <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+        <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">carbohydrate</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span>
+            <span class="o">{</span> <span class="n">carbohydrate</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>  <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+        <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">sodium</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span>
+            <span class="o">{</span> <span class="n">sodium</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>        <span class="k">return</span> <span class="k">this</span><span class="o">;</span> <span class="o">}</span>
+        <span class="kd">public</span> <span class="nc">NutritionFacts</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+          <span class="o">}</span>
+     <span class="o">}</span>
+    <span class="kd">private</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="nc">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">servingSize</span>  <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servingSize</span><span class="o">;</span>
+        <span class="n">servings</span>     <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servings</span><span class="o">;</span>
+        <span class="n">calories</span>     <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">calories</span><span class="o">;</span>
+     <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// 사용</span>
+<span class="nc">NutritionFacts</span> <span class="n">cocaCola</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NutritionFacts</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="mi">240</span> <span class="o">,</span><span class="mi">8</span><span class="o">).</span> <span class="n">calories</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">sodium</span><span class="o">(</span><span class="mi">35</span><span class="o">).</span><span class="na">carbohydrate</span><span class="o">(</span><span class="mi">27</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>Builder 는 매개변수가 많이 늘어나거나 가변인자를 사용할 경우 고려해보자. telescoping 방법보다 가독성이 좋고 JavaBeans 보다는 휠씬 안전하다.</li>
+</ul>
+
+<h3 id="item3--싱글톤-만들때-생성자를-private-로-해야하고-혹은-enum타입을-통해-만들면-좋다">ITEM3 : 싱글톤 만들때 생성자를 Private 로 해야하고 혹은 enum타입을 통해 만들면 좋다.</h3>
+<ul>
+  <li>생성자를 private 로 만들어서 해당 클래스 외부에서 따로 생성하지 못하도록 해야함</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Elvis</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Elvis</span> <span class="no">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Elvis</span><span class="o">();</span> <span class="c1">// static final!!</span>
+  <span class="kd">private</span> <span class="nc">ElvisO</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span> <span class="c1">// private 생성자!!</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{</span> <span class="o">..</span> <span class="o">.</span> <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>enum 싱글톤을 사용하는 이유?
+    <ul>
+      <li>enum 없이 싱글톤을 만들면 reflection 을 통해서는 instance 생성자에 접근할수가 있다.</li>
+      <li>싱글톤에서 serializable 을 사용하려면 instance 변수는 transient 로 선언해야 한다. 매번 deserialize 할때마다 instance 에 새로운값이 생성될수 있으므로 transient 를 통해 serialize 할때 제외하도록 설정해 주어야한다.</li>
+    </ul>
+  </li>
+  <li>java 1.5 이상을 사용하면 enum 을 통해서 싱글톤을 구현하면 좋다. 여러번 초기화 오브젝트가 생성되거나 serialization, reflection attack 등에 상관없이 구현가능하다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Elvis</span><span class="o">{</span>
+     <span class="no">INSTNACE</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="nc">String</span> <span class="n">test</span> <span class="o">=</span> <span class="s">"abc"</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">(){</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">test</span> <span class="o">=</span> <span class="s">"ccc"</span><span class="o">;</span> <span class="c1">// INSTANCE.test 도 가능.</span>
+     <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>enum 방식에 싱글톤은 널리 적용되어 있지 않다. 개인적으로도 Serialize 문제가 아니라면 구지 사용할 필요가 없다고 생각된다.</li>
+</ul>
+
+<h3 id="item4--private-생성자로-인스턴스를-생성할수-없게하라">ITEM4 : PRIVATE 생성자로 인스턴스를 생성할수 없게하라.</h3>
+<ul>
+  <li>java.lang.math 나 java.util.array 같은 util 클래스는 인스턴스가 생성되도록 하면 안되므로 생성자를 piravte 로 선언하면 인스턴스가 생성되는것을 막을수 있다.</li>
+  <li>기본적으로 생성자를 만들지 않아도 자바 컴파일러가 기본 생성자를 만들기 때문에 명시적으로 private 생성자를 선언해주어야한다.</li>
+  <li>추상 클래스를 사용해서 인스턴스를 생성하지 못하도록 하는 방법을 사용하면 안된다. 추상 클래스를 상속해서 인스턴스를 생성 할 수 도 있고 클래스가 마치 상속을 위해 생성된거처럼 잘못 알게된다.</li>
+  <li>private 생성자를 만들면 subclass 를 만들수 없으므(<em>컴파일 에러 발생</em>)로 항상좋은건 아니다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UtilityClass</span> <span class="o">{</span>
+  <span class="c1">// 디폴트 생성자가 만들어지는것을 방지</span>
+  <span class="kd">private</span> <span class="nf">UtilityClass</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 혹시나 불러질 가능성 대비해서 (클래스 내부에서) 에러 발생</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="item5--필요없는-오브젝트가-생성되는것을-피해라">ITEM5 : 필요없는 오브젝트가 생성되는것을 피해라</h3>
+<ul>
+  <li>Immutable 객체는 항상 재사용이 가능함!!</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"abc"</span><span class="o">);</span> <span class="c1">// 매번 새로운 객체 생성</span>
+<span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"abc"</span><span class="o">;</span> <span class="c1">// "abc" 스트링 풀에서 공부</span>
+
+<span class="nc">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="nc">String</span><span class="o">);</span> <span class="c1">// 새로운 인스턴스를 생성하지 않지만</span>
+<span class="k">new</span> <span class="nf">Boolean</span><span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="c1">// 생성자는 새로운 인스턴스를 생성</span>
+<span class="c1">// Static 팩토리를 사용하는것이 좋다.</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>가변 객체도 객체의 상태가 변경되지 않는다면 static{ } 블락에서 초기화 한후 재사용하자.자주 호출되는  함수에서 매번 객체를 생성하는 일은 하지 않는게 좋다.</li>
+  <li>immutable object 는 매번 인스턴스를 만들지 말고 static 블록에서 초기화한후 공유해서 사용해야 한다.</li>
+  <li>Map 에 keySet 함수도 매번 새로운 Set를 만들어서 리턴하지 않고 매번 같은 인스턴스를 리턴함.</li>
+  <li>java 1.5 이상에서 제공하는 autoboxing 이 일어나지 않도록 해라 Long 과 primitive long 간에 boxing 이 일어나면 추가적인 오버헤드가 발생한다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nc">Long</span> <span class="n">sum</span> <span class="o">=</span><span class="mi">0L</span><span class="o">;</span>
+  <span class="k">for</span> <span class="o">(</span><span class="mi">1</span><span class="n">ong</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="o">&lt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// autoboxing 일어남.</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sum</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="item6--쓸모없는-object-refreences-를-없애라">ITEM6 : 쓸모없는 Object refreences 를 없애라</h3>
+<ul>
+  <li>자바는 C/C++ 과는 다르게 더이상 참조되지 않으면 객체들이 사용하던 메모리가 자동으로 회수된다. <strong>마법은 아니므로 주의!</strong></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>  <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">pop</span><span class="o">(){</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+           <span class="k">throw</span> <span class="k">new</span> <span class="nf">EmptyStackException</span><span class="o">();</span>
+      <span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">elements</span><span class="o">[--</span><span class="n">size</span><span class="o">];</span>
+      <span class="n">elements</span><span class="o">[</span><span class="n">size</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 쓸모없는 reference 를 제거해주어야한다.</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>null 처리를 해주면 참조를 제거해서 메모리에서 사라지도록 할수있고, 잘못된 참조로 원하지 않게 작동하지 않고 NullPointerException 이 바로 일어나도록 할수있다.</li>
+  <li>클래스가 자기자신의 메모리를 관리할때 프로그래머가 메모리 릭에 대해 조심해야한다. 특정 element 가 free 되면 object reference 들은 모두 null 처리가 되어져야 한다.</li>
+  <li>캐쉬 상황에서 메모리 릭이 발생하기 쉽다. 캐쉬 외부에 캐쉬의 키에 대한 참조가 있을 동안만 캐시에 저장된 항목이 유효한 캐쉬를 구현해야한다. WeakHasMap을 캐시로 사용하면 key값의 외부 참조에 따라 결정되도록 할수있다. (<em>weak reference</em>)</li>
+  <li>콜백과 리스너에서도 메모리릭이 발생하기 쉽다. 명시적으로 콜백을 deregister 시키지 말고 weak reference 를 사용하거나 키값들을 weakHashMap 을 사용해 저장하라.</li>
+</ul>
+
+<h3 id="item7--finalizer-사용하지-마라">ITEM7 : finalizer 사용하지 마라.</h3>
+<ul>
+  <li>Java의 finalizer 는 C++ 의 소멸자가 아니다!</li>
+  <li>신속하게 실행된다는 보장이 없다.</li>
+  <li>혹시나 사용할경우 : 생성된 객체를 종료하는 메소드 호출이 재대로 동작하지 않을경우에 대한 대비 ex) FileInputStream, Timer, Connection 에는 finalizer 가 있다.</li>
+</ul>
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2014/effective-java-1/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2014/effective-java-1/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>

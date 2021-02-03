@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Git Stash - 임시 보관하기</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content=", "/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2014/git-stash/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Git Stash - 임시 보관하기</h1>
+    <p class="post-meta">Apr 19, 2014
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="git-stash">Git Stash</h1>
+<p><code class="language-plaintext highlighter-rouge">$ git stash</code>는 워킹 디렉토리에 <code class="language-plaintext highlighter-rouge">Unstaged - git add 는 수행됨</code> 파일들을 백업하고 워킹디렉토리를 <code class="language-plaintext highlighter-rouge">HEAD - 이전 커밋</code> 상태로 만드는 명령이다.</p>
+
+<ol>
+  <li>수정중인 상태를 임시 저장해두고 이전 커밋으로 되돌리기 (커밋을 하거나 브랜치를 만들어서 보관할수 있으나 현재 수정중인 상태라서 따로 커밋 브랜치가 애매한상황)</li>
+  <li>현재 브랜치에 작업한 사항을 다른 브랜치로 옮기거나</li>
+</ol>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash</code> - 현재 수정중인 상태에서 이전 HEAD 의 커밋 상태로 돌아감</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash pop</code> - Stash로 임시 저장했던 상태로 되돌린다. 저장된 스택중에 가장 위에 있는것 최신에 Push 된 상태로 돌아간다.</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash list</code> - 현재 stash(임시 보관)되어진 리스트를 보여줌</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash save NAME</code> - 해당 이름으로 git stash 를 수행 (구별하기 위한 메세지를 지정해주는것 이다.)</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash apply stash@{0}</code> - Stash 이름들은 기본적으로 stash@{0} stash@{1} stash@{2} 이런식으로 지정된다. 해당 이름으로 상태를 돌릴수있다.</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash drop stash@{0}</code> - 저장된 Stash중 해당 이름으로 되어 있는 것을 삭제한다. 생략하면 맨위에 Push 된것을 삭제한다.</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$ git stash clear</code> - 모든 Stash 리스트 들을 삭제한다.</p>
+</blockquote>
+
+<h1 id="git-stash-merge">Git Stash Merge</h1>
+<p>Git Stash 가 무조건 임시 보관 상태로 돌리는것이 아니고 해당 파일을 수정후에 Stash 하기 전 상태와 머지를 수행한다.
+Stash 하기전 상태와 Stash한 후에 파일이 Conflict 가 나는 경우가 있을수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre>error: Your <span class="nb">local </span>changes to the following files would be overwritten by merge:
+  file1
+Please, commit your changes or stash them before you can merge.
+Aborting
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">git stash</code> 를 수행한후에 파일을 수정한다음 <code class="language-plaintext highlighter-rouge">git stash pop</code> 으로 돌아가려고 할때 Conflict 이 발생한다면 <code class="language-plaintext highlighter-rouge">git commit</code> 을 수행한후에
+<code class="language-plaintext highlighter-rouge">git stash pop</code> 을 수행한다. 그러면 Conflict 가 발생하고 해당 사항들을 모두 Merge 해주어야 한다.</p>
+
+<h1 id="git-stash-브랜치-바꾸기">Git Stash 브랜치 바꾸기</h1>
+<p>가끔 잘못된 브랜치에 작업을 하고 있을 경우가 있다. 작업한 브랜치에 내용을 내가 원하는 브랜치로 적용하고 싶을때 Git stash 를 사용할 수 있다.</p>
+
+<blockquote>
+  <ol>
+    <li>현재 브랜치에서 작업 된 사항을 모두 <code class="language-plaintext highlighter-rouge">git add .</code> 를 수행해 Unstaged 상태로 만들어 준다.</li>
+    <li><code class="language-plaintext highlighter-rouge">git checkout name</code> 내가 원하는 브랜치로 이동한다.</li>
+    <li><code class="language-plaintext highlighter-rouge">git stash pop</code> stash로 저장한 상태로 돌려준다.</li>
+    <li><code class="language-plaintext highlighter-rouge">git commit</code> 해당 브랜치에 커밋해준다.</li>
+    <li><code class="language-plaintext highlighter-rouge">git checkout master</code> <code class="language-plaintext highlighter-rouge">git checkout -- .</code></li>
+  </ol>
+</blockquote>
+
+<p>추가적으로 master 브랜치의 수정사항을 모두 원상태로 돌려준다. <code class="language-plaintext highlighter-rouge">git reset --hard HEAD~1</code>을 수행해
+ 주어도 된다. –hard 옵션을 줄경우 모든 수정 내용이 사라질수 있으니 조심해야 한다.</p>
+
+<h1 id="reference">Reference</h1>
+<p><a href="http://wit.nts-corp.com/2014/03/25/1153">JK.Lee</a></p>
+
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2014/git-stash/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2014/git-stash/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>

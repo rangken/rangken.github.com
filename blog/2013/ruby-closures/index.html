@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ruby Closure(Lambdas Procs Blocks)</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content=", "/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2013/ruby-closures/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Ruby Closure(Lambdas Procs Blocks)</h1>
+    <p class="post-meta">Apr 26, 2013
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <p><img src="/assets/images/ruby.jpeg" alt="License" /></p>
+
+<p>Ruby는 이름 만큼이나 참 좋은 언어다. 내가 요즘 매우 관심있게 보는 언어중에 하나이기도 하나~ Ruby는 가장 유명한 웹 프레임 워크인 <a href="https://github.com/rails/rails">RubyOnRails</a> 에 사용되며 맥용 패키지 관리툴인 <a href="https://github.com/mxcl/homebrew">Homebrew</a> 에서도 사용되고 XCode에 의존적 패키지를 관리하는 툴인 <a href="https://github.com/CocoaPods/CocoaPods">CocosPods</a> 등등에서 사용된다. 특히 맥을 사용하는 유저에게 많은 영향을 미치고 있는것 같다.</p>
+
+<p>루비가 아무리 인간 친화적인 스트레스 없는 프로그래밍이라고는 하지만 어려운 가끔 어려운 부분이 존재하긴 한다. 그중 하나가 Lambda 나 Procs Block 을 사용한 Closure 프로그래밍을 할 경우다. 위 3개는 비슷하면서도 조금씩 다르다.</p>
+
+<h2 id="block">Block</h2>
+<p>가장 쉽고 흔하게 사용되는 루비스러운 Clouser사용 방법이다.
+사용 방법은</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">function</span>
+  <span class="nb">puts</span> <span class="s2">"function called"</span>
+  <span class="k">yield</span> <span class="s2">"You are block"</span>
+<span class="k">end</span>
+
+<span class="n">fuction</span> <span class="k">do</span> <span class="o">|</span><span class="n">param</span><span class="o">|</span>
+	<span class="nb">puts</span> <span class="s2">"block called </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="c1"># function called</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>블락은 do <code class="language-plaintext highlighter-rouge">|파라메터..| end</code> 로 구성되고 <code class="language-plaintext highlighter-rouge">yield 파라메터</code>로 호출될수 있다.
+블락의 특성은 다른 함수처럼 이름이 없으며 단순히 yield를 통해 호출된다는 것이다.
+하지만 yield가 아니고 Proc를 통해서 호출 하는 방법도 존재한다.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"function called"</span>
+  <span class="n">block</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"You are Proc"</span><span class="p">)</span>
+  <span class="c1"># puts block.class</span>
+<span class="k">end</span>
+
+<span class="n">fuction</span> <span class="k">do</span> <span class="o">|</span><span class="n">param</span><span class="o">|</span>
+	<span class="nb">puts</span> <span class="s2">"block called </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>위 처럼 해도 똑같은 결과를 얻을 수 있다. 루비 함수인 class를 통해 block의 타입을 출력해보면 Proc 임을 알 수 있다.</p>
+
+<blockquote>
+  <blockquote>
+    <p>function 에 파라메터로 <code class="language-plaintext highlighter-rouge">ampersand - &amp;</code> 가 사용된것을 볼수 있다. 보통 ruby 파라메터는 &amp; 를 붙이지 않지만 블락을 받을 경우 &amp; 가 사용된다. &amp;는 C에서 사용되는 reference형과 의미가 다르다. &amp;의 의미는 루비가 내부적으로 to_proc 라는 함수를 호출 하도록 만들도록 한다.</p>
+  </blockquote>
+</blockquote>
+
+<p>block 이 Proc 과 같다고 했지만
+그 기능적인 내용이 같을뿐이지 내부적으로 Proc의 경우에는 Ruby 의 class 이지만 block 는 클래스가 아니다.
+Ruby는 완전한 Object-Oriented 프로그래밍 이기 때문에 코드의 재사용을 하도록 한다. block 의경우에는 저장되지 않으며 재사용 되지 않지만
+Proc 의 경우 변수로 저장되며 재사용 된다. 즉 block은 저장되지 않는 Proc 라고 할 수 있다.</p>
+
+<h2 id="proc-procedures">Proc (Procedures)</h2>
+<p>블락은 매우 쉽고 단간하지만 만약 매우 많은 블락들을 사용하고 그 블락들을 여러번 사용 하려고 한다면 블락들을 변수화 하고 싶을 것이다.
+즉 블락을 저장해서 클래스로 만든것이 Proc이다.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"function called"</span>
+  <span class="n">code</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"You are Proc"</span><span class="p">)</span>
+  <span class="c1"># puts code.class</span>
+<span class="k">end</span>
+
+<span class="nb">proc</span> <span class="o">=</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">param</span><span class="o">|</span>
+	<span class="nb">puts</span> <span class="s2">"Proc called </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="n">function</span><span class="p">(</span><span class="nb">proc</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Proc 를 사용하는 방법이다. <code class="language-plaintext highlighter-rouge">ampersand &amp; 를 사용하지 않고 그냥 code를 사용해서 call 를 할수 있다</code> 즉 to_proc를 호출 하지 않다도 proc 변수 자체가 Proc 타입이기 때문이다.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">callbacks</span><span class="p">(</span><span class="n">procs</span><span class="p">)</span>
+	<span class="n">procs</span><span class="p">[</span><span class="ss">:starting</span><span class="p">].</span><span class="nf">call</span> <span class="c1"># staring proc 호출</span>
+	<span class="nb">puts</span> <span class="s2">"Still going"</span>
+	<span class="n">procs</span><span class="p">[</span><span class="ss">:finishing</span><span class="p">].</span><span class="nf">call</span> <span class="c1"># finishing proc 호출</span>
+<span class="k">end</span>
+
+<span class="n">callbacks</span><span class="p">(</span><span class="ss">:starting</span> <span class="o">=&gt;</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span><span class="p">{</span> <span class="nb">puts</span> <span class="s2">"Staring"</span><span class="p">},</span>
+	<span class="ss">:finishing</span><span class="o">=&gt;</span><span class="no">Proc</span><span class="p">.</span><span class="nf">new</span><span class="p">{</span> <span class="nb">puts</span> <span class="s2">"Finishing"</span><span class="p">})</span> <span class="c1"># dictionary 형태로 Proc 전달</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>위와 같이 2개 이상의 clouser를 사용 할 수도 있다.
+Block 과 Proc을 요약하자면
+w</p>
+<ul>
+  <li>Block : 메소드를 여러개로 나누면서 서로 상호작용 하도록 만들고 싶다면</li>
+  <li>Block : Database migration 처럼 여러 표현을 자동적으로 동작 시키고 싶다면</li>
+  <li>Proc : 블락을 여러번 재사용 하고 싶다면</li>
+  <li>Proc : 메소드가 여러개 이상 콜백을 사용하려고 한다면</li>
+</ul>
+
+<h2 id="lambads">Lambads</h2>
+<p>람다는 Ruby에서 Clouser을 구현하기 위해 사용 하는 또 다른 방법은 lambda 이다.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"function called"</span>
+  <span class="n">code</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"You are Proc"</span><span class="p">)</span>
+  <span class="c1"># puts code.class # Proc</span>
+<span class="k">end</span>
+
+<span class="nb">lambda</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="k">do</span> <span class="o">|</span><span class="n">param</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"lambda called </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">function</span><span class="p">(</span><span class="nb">lambda</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>lambda 도 Proc와 마찬가지로 같은 방법으로 사용될수 있다. 그렇다면 lambda 와 Proc 가 다른것은 무엇일까</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+  <span class="n">one</span><span class="p">,</span> <span class="n">two</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+  <span class="n">code</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">args</span><span class="p">(</span><span class="no">Proc</span><span class="p">.</span><span class="nf">new</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">"Give me a </span><span class="si">#{</span><span class="n">a</span><span class="si">}</span><span class="s2"> and a </span><span class="si">#{</span><span class="n">b</span><span class="si">}</span><span class="s2"> and a </span><span class="si">#{</span><span class="n">c</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2">"</span><span class="p">})</span>
+<span class="n">args</span><span class="p">(</span><span class="nb">lambda</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">"Give me a </span><span class="si">#{</span><span class="n">a</span><span class="si">}</span><span class="s2"> and a </span><span class="si">#{</span><span class="n">b</span><span class="si">}</span><span class="s2"> and a </span><span class="si">#{</span><span class="n">c</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2">"</span><span class="p">})</span>
+<span class="c1"># =&gt; Give me a 1 and a 2 and a NilClass</span>
+<span class="c1"># *.rb:8: ArgumentError: wrong number of arguments (2 for 3) (ArgumentError)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<blockquote>
+  <blockquote>
+    <p>lambda 는 함수 인자의 갯수를 체크 하지만 Proc는 갯수 체크를 하지 않고 해당 인자가 들어오지 않을경우 nil 로 처리된다. lambda 를 사용할때 인자의 갯수가 틀리면 ArgumentError가 발생한다.</p>
+  </blockquote>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">proc_return</span>
+  <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"Proc.new"</span><span class="p">}.</span><span class="nf">call</span>
+  <span class="k">return</span> <span class="s2">"proc_return method finished"</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">lambda_return</span>
+  <span class="nb">lambda</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"lambda"</span> <span class="p">}.</span><span class="nf">call</span>
+  <span class="k">return</span> <span class="s2">"lambda_return method finished"</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">proc_return</span>
+<span class="nb">puts</span> <span class="n">lambda_return</span>
+<span class="c1"># =&gt; Proc.new</span>
+<span class="c1"># =&gt; lambda_return method finished</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<blockquote>
+  <blockquote>
+    <p>Proc 는 return 된후 해당 로직을 종료한다. lambda 는 return 후에도 로직이 계속 진행된다.
+위와 같이 Proc와 lambda 의 차이는 둘의 컨셉의 차이라고 할 수 있다.
+Proc 은 단지 <code class="language-plaintext highlighter-rouge">Drop In Code snippets</code> 이지만 lambda 는 method처럼 행동한다. lambda 의 모든 특징은 method의 특징과 매우 닮아 있다.
+즉 lambda 의 사용은 method를 사용하는 또하나의 방법이라고 생각할 수 있다.</p>
+  </blockquote>
+</blockquote>
+
+<p>람다는 파라메터 갯수를 체크한다.
+람다는 리턴되어도 계속 진행 되지만 Proc는 진행후 return후 함수가 종료된다.</p>
+
+<h2 id="method-object">Method Object</h2>
+<p>Ruby 에서는 모든것이 객체일까? Ruby 에는 객체가 아닌것도 존재한다. 위에 설명했던 block도 객체가 아니다. &amp; 와 to_proc 의 과정을 거친후에
+Proc 이라는 객체가 된것이다. 또하나 Ruby 에서 객체가 아닌것은 Method 다. Method 그 자체는 객체가 아니다.
+Method 를 객체화 시킨것이 Method Object 이다. (Ruby에서 객체가 아닌 또 하나는 Keyword이다.)</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"function called"</span>
+  <span class="n">code</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"You are Proc"</span><span class="p">)</span>
+  <span class="c1"># puts code.class # Method</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">testfunc</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"lambda called </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">function</span><span class="p">(</span><span class="nb">method</span><span class="p">(</span><span class="ss">:testfunc</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>method 라는 함수를 사용해 testfunc를 Method Object 로 전환 시킨후에 function 을 실행 시켰다.
+code.class 는 Method 라고 나오는 것을 확인 할 수 있다.
+Method Object 는 lambda 처럼 행동 하지만 이름없는 method 인 lambda와 다르게 이름이 있는 method라고 할 수 있다.</p>
+
+<h2 id="troublesome">TroubleSome</h2>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">generic_return</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+  <span class="n">code</span><span class="p">.</span><span class="nf">call</span>
+  <span class="k">return</span> <span class="s2">"generic_return method finished"</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">generic_return</span><span class="p">(</span><span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"Proc.new"</span> <span class="p">})</span>
+<span class="nb">puts</span> <span class="n">generic_return</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"lambda"</span> <span class="p">})</span>
+<span class="c1"># =&gt; *.rb:6: unexpected return (LocalJumpError)</span>
+<span class="c1"># =&gt; generic_return method finished</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Proc 을 사용할 경우에 call 후에 return 이 놓이게 되면 interpreter 가 에러를 발생 시킨다.
+Proc 을 사용할 경우 return 사용에 주의 해야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">blockFunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">block</span><span class="p">.</span><span class="nf">class</span>
+  <span class="k">yield</span>
+<span class="k">end</span>
+<span class="n">blockFunc</span> <span class="s2">"hello"</span> <span class="s2">"hi"</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s2">"blockfunc"</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>block을 사용할때는 block 인자는 맨 마지막 인자로 사용해야 한다.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Ruby에 closure 타입에는 block Procs lambdas method 가 있다. block 과 Procs 는 drop-in code snippet 으로 사용되고
+lambdas 와 methods 는 함수 처럼 작동 한다.
+위와 같은 Ruby에 Closure 를 잘 사용하면 루비를 좀더 강력하고 효과적으로 유연하게 사용 가능하다!</p>
+
+<h2 id="추가2014213-proc-간단한-선언법">추가(2014.2.13) Proc 간단한 선언법</h2>
+<p>Ruby 2.0 이후 Proc을 선언할때 proc=Proc.new 를 사용하기 보다는 proc= -&gt;(input){} 처럼 좀더 간단히 사용한다.!</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="no">Blank</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span> <span class="n">input</span><span class="p">.</span><span class="nf">strip</span> <span class="o">==</span> <span class="s1">''</span> <span class="p">}</span> <span class="c1"># 공백문자들로 구성되어 있을경우</span>
+<span class="no">Uppercase</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">input</span> <span class="o">=~</span> <span class="sr">/[A-Z]/</span><span class="p">)</span> <span class="c1"># 대문자로만 구성되어있는지</span>
+<span class="no">FILTER</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="no">Blank</span> <span class="o">=&gt;</span> <span class="s2">"반킨이야"</span><span class="p">,</span>
+  <span class="no">Uppercase</span> <span class="o">=&gt;</span> <span class="s2">"대문자로만 구성되어 있어"</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+<span class="no">FILTER</span><span class="p">.</span><span class="nf">detect</span> <span class="p">{</span> <span class="o">|</span><span class="nb">proc</span><span class="p">,</span><span class="o">|</span> <span class="nb">proc</span><span class="p">[</span><span class="n">input</span><span class="p">]}.</span><span class="nf">last</span> <span class="c1"># 필터에 걸린 마지막 찾음!</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="refreence">Refreence</h2>
+<p><a href="http://www.robertsosinski.com/2009/01/11/the-difference-between-ruby-symbols-and-strings/">Robeert Sosinski</a>
+<a href="http://innig.net/software/ruby/closures-in-ruby">Closures In Ruby</a></p>
+
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2013/ruby-closures/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2013/ruby-closures/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>

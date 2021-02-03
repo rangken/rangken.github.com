@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Curl-Command Line Tool</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="Curl, ETC"/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2013/curl-command-line-tool/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Curl-Command Line Tool</h1>
+    <p class="post-meta">Apr 9, 2013
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <p><img src="http://curl.haxx.se/pix/curl-refined.jpg" alt="Curl Logo" />
+<br />
+<a href="http://curl.haxx.se">CURL</a> 은 HTTP , HTTPS , FTP ,FTPS,IMAP 등 여러 프로토컬을 지원하는 Command Line Tool 이다.
+Command Line Tool 이란 Terminal 을 통해 실행 시킬 수 있는 프로그램이라는 뜻이다. <br />
+libCurl 이란 C 기반으로 된 curl 라이브러리를 말한다.<br />
+이번 포스팅은 Command Line Tool 로써 CURL 에 대한 내용이다. 가장 많이 쓰는 HTTP 와 FTP 사용 옵션</p>
+<h2 id="http">HTTP</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre>curl <span class="s2">"http://naver.com"</span> <span class="c"># http://naver.com GET Request</span>
+curl <span class="nt">-I</span>  <span class="c"># Header만 출력</span>
+curl <span class="nt">-i</span> <span class="c"># Header 와 Body도 출력</span>
+curl <span class="nt">-v</span> <span class="c"># -v옵션은 자세한 과정을 출력함</span>
+curl <span class="nt">-T</span> <span class="c"># 파일 업로드</span>
+curl <span class="nt">-d</span> <span class="s2">"name=rangken"</span> http://naver.com <span class="c">#: naver.com 에 name=rangken 을 POST 로 Request</span>
+<span class="c">#(curl --data 와 같다 , curl --data-urlencode url Encoding 한다.)</span>
+curl <span class="nt">-X</span> <span class="o">(</span>POST/DEL/GET/UPDATE<span class="o">)</span> <span class="c"># 지정된 메소드로 Request</span>
+curl <span class="nt">-b</span> <span class="s2">"name=rangken"</span> http://naver.com <span class="c"># Cookie 설정</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="ftp-다운로드">FTP 다운로드</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre>curl <span class="nt">-v</span> <span class="nt">-u</span> <span class="s1">'FTP아이디:FTP비번'</span> <span class="c"># ftp://주소/경로 -o 출력할 파일</span>
+ex<span class="o">)</span> curl <span class="nt">-v</span> <span class="nt">-u</span> <span class="s1">'rangken:pwd'</span> ftp://rangken.com/ftp/download.zip <span class="nt">-o</span> Download/download.zip
+<span class="nt">-v</span> : 자세한 옵션 출력
+<span class="nt">-u</span> : 인증 아이디를 rangken 으로 비번을 <span class="nb">pwd </span>로 인증함
+<span class="o">(</span> ftp://아이디:비번@주소/경로 형식으로 인증도 가능함<span class="o">)</span>
+- ftp://rangken.com 이 FTP 주소 /ftp/download.zip 이 경로 이다. <span class="o">(</span> 여기서 경로는 각계정에 따른 상대 경로이다. root 계정과 개인 계정은 서로 기본 경로가 다르다<span class="o">)</span>
+- <span class="nt">-o</span> 출력 파일 설정
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="ftp-업로드">FTP 업로드</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>curl <span class="nt">-T</span> download.zip ftp://아이디:비번@주소/ftp/ <span class="nt">--disable-epsv</span>
+<span class="nt">-T</span> download.zip : 현재 경로에 download.zip 을 해당 주소에 /ftp/ 폴더에 업로드
+- disable-epsv : passive mode 설정
+- 여러게 파일 올리려면?
+curl <span class="nt">-T</span> <span class="s2">"{file1,file2,file3}"</span> ftp://아이디:비번 ..
+</pre></td></tr></tbody></table></code></pre></figure>
+
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2013/curl-command-line-tool/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2013/curl-command-line-tool/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>

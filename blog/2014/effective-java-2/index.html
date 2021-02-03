@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Effective Java 3장 모든 객체에 공통적인 메소드</title>
+    <!-- SEO -->
+    <meta name="description" content="Modifying latitude and longitude with a distance.">
+    <meta name="keywords" content="Java, effective-java, Java"/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2014/effective-java-2/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Effective Java 3장 모든 객체에 공통적인 메소드</h1>
+    <p class="post-meta">Aug 26, 2014
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <h2 id="effective-java-모든-객체에-공통적인-메소드-812">Effective-Java 모든 객체에 공통적인 메소드 (8~12)</h2>
+
+<h3 id="item8--equals-메소드를-오버라이딩-할때는-보편적-계약을-따르자">ITEM8 : equals 메소드를 오버라이딩 할때는 보편적 계약을 따르자.</h3>
+<ul>
+  <li>메소드를 오버라이딩 하지 않는게 되도록 좋다. 특별한경우 가 아니라면!
+    <ul>
+      <li>클래스의 각 인스턴스가 본래부터 유일한 경우 : Thread 와 같은 클래스 처럼 값의 논리적인 비교는 의미가 없으며 객체 참조가 같으면(==) 동일한 것임을 알 수 있기 때문에</li>
+      <li>두 인스턴스가 논리적으로 같은지 검사하지 않아도 되는 클래스의 경우 : java.util.Random 과 같은 클래스, equals 같은 기능이 필요가없다.</li>
+      <li>수퍼 클래스에서 equals 메소드를 이미 오버라이딩 했고 그 메소드를 그대로 사용해도 좋은경우 : Set 의 AbstractSet, List 의 AbstractList</li>
+      <li>private 이거나 package 전용 클래스라서 이클래스의 equals 메소드가 절대 호출되지 않아야 할 경우.</li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">){</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span> <span class="c1">// 에러를 발생 시켜준다.</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>
+    <p>특별한 경우 오버라이딩 되도록 해도 좋다. Value 클래스 같은경우 하나의 값을 나타내는 클래스로써 Integer Date와 같은것들이다. 같은 객체 참조 여부는 중요하지 않고 객체가 갖는 값이 논리적으로 같은지가 관심있는 클래스의 경우다. <em>Map 이나 Set 의 요소로 사용될경우 equals 메소드의 오버라이딩이 꼭 필요하다. 같은 값의 객체가 이미 있는지 비교하는 수단을 제공해야 되기 떄문이다.</em></p>
+  </li>
+  <li>성질
+    <ul>
+      <li>재귀성 : null 아닌 x.equals(x) 반드시 true 여야한다.</li>
+      <li>대칭성 : null 아닌 x.quals(y) 이면 반대로 true다!</li>
+      <li>이행성 : x.equals(y) y.equals(z) 이면 x.equals(z) 여야한다.</li>
+      <li>일관성 : 한번 같으면 계속 같아야한다.</li>
+    </ul>
+  </li>
+  <li>상속을 사용할경우 완벽한 equals 를 구현하기 힘들다. 차라리 Compiosition( 변수로 선언 ) 을 하는것이 좋다.
+    <ul>
+      <li>java.sql.Timestamp 는 java.util.Date 로 상속받아 구현되어있다. Timestamp 와 date 을 eqauls 할경우 대칭성을 위한하고 있어서 같이 혼용되어 사용하면 엉뚱한 결과를 초대할수 있다.</li>
+      <li>Abstract 클래스의 서브클래스에는 eqauls 계약을 위해하지 않고 값 컴포넌트를 추가할수 있다.</li>
+    </ul>
+  </li>
+  <li>상속을 이용해 equals 를 구현하려면 instanceof 키워드를 사용해 체크해주는것이 좋다.</li>
+  <li>float double 이 아닌 기본 필드경우에는 == 연산자로 비교하며 필드가 객체 참조일때는 eqauls 메소드를 재귀적으로 다시 호출한다. Float 객체의 경우 Float.compare Dobule 은 Double.compare 메소드를 사용한다. Float.eqauls 나 Double.equals 를 사용해도 된다. 객체가 null 을 가질수도 있으므로</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="o">(</span><span class="n">field</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">o</span><span class="o">.</span><span class="na">field</span> <span class="o">==</span> <span class="kc">null</span> <span class="n">field</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">field</span><span class="o">))</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>equals 메소드의 인자타입을 Object 대신에 다른 타입으로 바꾸지 말자! 무조건 기본형을 오버라이딩 하자. 변수타입을 바꿔 오버로드 하면 가끔은 성능향상을 가져올수 있지만 코드만 복잡하게 할 뿐이다. 이런 실수를 줄이기 위해 equals 함수에는 무조건 @Override 키워드를 사용해 주는것이 좋다.</li>
+</ul>
+
+<!-- more -->
+
+<h3 id="item9--eqauls-메소드를-오버리이드-할때는-hashcode-메소드도-항상-같이-오버라이드-하자">ITEM9 : eqauls 메소드를 오버리이드 할때는 hashCode 메소드도 항상 같이 오버라이드 하자</h3>
+<ul>
+  <li>equals 를 오버라이드 할떄 hashCode 를 적절하게 오버라이드 해주지 않으면 HashMap HashSet HashTable 을 포함 하는 모든 hash 기반의 컬랙션들과 우리 클래스를 같이 사용할 때 적절하게 동작하지 않을수있다! (해쉬 기반 콜랙션들은 hashCode 함수로 키값을 사용한다)
+    <ul>
+      <li>hashCode 는 실행중에 같은 객체에 대해 항상 같은값 호출해야된다. 어플리케이션 재실행때는 달라도됨</li>
+      <li>eqauls 가 true 이면 hashCode 는 반드시 같다</li>
+      <li>eqauls 가 false 라고 해서 hashCode 가 반드시 false 여야 하는건 아니다. 하지만 달라야 해쉬 콜랙션들의 성능을 향상 시킬수 있다.</li>
+    </ul>
+  </li>
+  <li>적절한 해쉬 메소드를 사용하여 hashCode 함수를 구현해주어야한다.
+    <ul>
+      <li>f 가  boolean 이면 1 or 0</li>
+      <li>f 가  byte char short int 이면 (int)f</li>
+      <li>f 가  long 이면 (int)(f ^ ( f »&gt; 32))</li>
+      <li>f 가  float 이면 Float.floatToIntBits(f)</li>
+      <li>f 가  double 이면 Double.floatToLongBits(f) 한후에 long 처럼 해준다.</li>
+      <li>f 가 객체 참조일 경우 eqauls 메소드를 재귀적으로 호출하면 hashCode 메소드도 재귀적으로 자동 호출된다.</li>
+      <li>f 가 배열이라면 배열의 각 요소를 별개의 필드처럼 처리한다. Arrays.hashCode 메소드들 중 하나를 사용할수 있다.</li>
+      <li>result = 31 * result + c, result 초기값 17 소수를 사용해서 해쉬 기능 향상 시킴!</li>
+      <li>equals 메소드에서 비교하지 않은 필드는 hashCode 필드에서 제외시켜야함.</li>
+      <li>만약 해쉬 코드 연산비용이 중요한 클래스라면 lazy initializtion 을 할수있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">areaCode</span><span class="o">;</span> <span class="c1">// 모두 short 형</span>
+  <span class="n">result</span> <span class="o">=</span><span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">prefix</span><span class="o">;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">lineNumber</span><span class="o">;</span>
+  <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">hashCode</span><span class="o">;</span>
+<span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span><span class="n">hashCode</span><span class="o">;</span>
+    <span class="c1">// 한번만  해쉬코드 설정해주고 계속 사용</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">areaCode</span><span class="o">;</span> <span class="c1">// 모두 short 형</span>
+      <span class="n">result</span> <span class="o">=</span><span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">prefix</span><span class="o">;</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="n">lineNumber</span><span class="o">;</span>
+      <span class="n">hashCode</span> <span class="o">=</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="item10--tostring-메소드는-항상-오버라이드-하자">ITEM10 : toString 메소드는 항상 오버라이드 하자</h3>
+<ul>
+  <li>java.lang.Object 클래스는 toString 메소드를 구현하고 있다. 16진수형태로 해쉬코드가 붙는다!</li>
+  <li>toString 은 간결하며 읽기 쉬워야 한다. 모든 서브 캘르스들은 이 메소드를 오버라이드 할것을 권한다!</li>
+  <li>표현형식의 규정 여부와는 무관하게 아무튼 그의도를 명쾌하게 문서화 해야한다.</li>
+</ul>
+
+<h3 id="item-11--clone-메소드는-신중하게-오버라이드-하자">ITEM 11 : clone 메소드는 신중하게 오버라이드 하자</h3>
+<ul>
+  <li>Cloneable 인터페이스는 복제를 허용하는 객체라는것을 알리는 목적으로 사용하는 믹스인 인터페이스 이다. 하지만 자신이 clone 메소드를 가지고 있지 않으며 Object 클래스의 clone 메소드는 사용에 제약이 있다. (아무런 추상 메소드를 가지고 있지 않다)</li>
+  <li>Cloneable 인터페이스가 비록 clone 함수를 가지고 있지는 않지만 구현하지 않으면 protected clone 함수에서 CloneNotSupportedException 예외가 발생한다.(정장적인 인터페이스 사용법과 다르다. 특별히 protected 메소드의 동작 여부를 결정함)
+    <ul>
+      <li>Object 를 상속한 클래스에서 implement Clonable 을 해주지 않아도 Object 의 clone 함수가 불러지지 않는다면 CloneNotSupportedException 발생 안할수도 있다.</li>
+    </ul>
+  </li>
+  <li>복제를 할때는 어떤 생성자도 호출되지 않는다.
+    <ul>
+      <li>x.clone() != x</li>
+      <li>x.clone().getClass() == x.getClass()</li>
+      <li>x.clone().eqauls(x) == true // 항상 그런거는 아님.</li>
+    </ul>
+  </li>
+  <li>수퍼 클래스의 clone 메소드를 오버라이드 할 경우 서브 클래스의 clone 에서는 반드시 super.clone 을 호출하여 얻은 객체를 반환해야 한다.</li>
+  <li>java 1.5 이상해서는 제네릭의 일부기능으로 convariant return type 기능이 추가됬다. 서브 클래스의 오버라이딩한 메소드에서는 반환 객체의 더많은 정보를 제공할수 있으며 클라이언트 코드에서는 반환 객체를 서브 클래스 타입으로 캐스팅 할 필요없다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="c1">// object clone() 이 아니여도 된다. return 타입에 되서는 Genric 기능이 제공됨!</span>
+<span class="nd">@Override</span> <span class="kd">public</span> <span class="nc">PhoneNumber</span> <span class="nf">clone</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="nc">PhoneNumber</span><span class="o">)</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">CloneNotSupportedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span> <span class="c1">//여기서는 이 예외가 생길 수 없다</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>Stack 과 같은 콜랙션을 clone 할 경우</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="nd">@Override</span> <span class="kd">public</span> <span class="nc">Stack</span> <span class="nf">clone</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="nc">Stack</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Stack</span><span class="o">)</span> <span class="kd">super</span> <span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="n">result</span><span class="o">.</span><span class="na">elements</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">CloneNotSupportedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span> <span class="c1">//여기서는 이 예외가 생길 수 없다</span>
+ <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>고급 프로그래머가 아니라면 clone 을 사용하지 않고 new TreeSet(s) 형태처럼  clone 없이 변환 생성자를 사용하는것이 좋다.</li>
+  <li>Cloneable 은 배열 복제 정도아니면 되도록이면 clone 메소드를 전혀 오버라이드 하지 않고 호출도 안하는게 좋다.</li>
+</ul>
+
+<h3 id="item-12--comparable-인터페이스의-구현을-고려하자">ITEM 12 : Comparable 인터페이스의 구현을 고려하자</h3>
+<ul>
+  <li>compareTo 는 java.lang.object 에 구현되어있는게 아니라 Comparable 인터페이스에 있다.</li>
+  <li>Comparble 인터페이스를 구현하면 자바의 수많은 알고리즘 및 컬랙션 클래스들과 상호 연동이 가능하다. 자바 라이브러리의 모든 값 클래스들은 Comparable 인터페이스를 구현한다.
+    <ul>
+      <li>작으면 음수 크면 양수 같으면 0 비교할수없으면 <strong>ClassCastException</strong> 을 발생시킨다.</li>
+    </ul>
+  </li>
+  <li>eqauls 와 같은 일관된 결과를 갖도록 하는것이 좋다.
+    <ul>
+      <li>new BigDecimal(“1.0”) 과 new BigDecimal(“1.00”) 두 개의 객체를 HashSet 에 추가한다면 두객체 모두 저장될것이다. 두 BigDecimal 객체가 다른것으로 판정되기 때문 (hashCode 다름). 하지만 TreeSet을 사용한다면 CompareTo 메소드를 사용해서 비교하므로 BigDecimal 객체가 같은것으로 판정된다.</li>
+      <li>정렬 컬랙션들(내부적으로 정렬을 하는, TreeMap, TreeSet )은 컬랙션 인터페이스(Collection, Set, Map) 등의 보편적 계약을 따르지 않을수 있다. 컬렉션 인터페이스의 보편적인 계약은 eqauls 를 메소드 관점에서 정하고 정렬컬랙션들은 <strong>eqauls 대신 compareTo</strong> 로 동일 여부를 검사하는데 사용함.</li>
+    </ul>
+  </li>
+  <li>compareTo 메소드 내부에서 비교 객체의 타입을 확인하거나 타입 변환 할 필요없다. 타입이 잘못되면 당연히 컴파일 에러가 발생하게 되어있다.</li>
+  <li>자연율 순서와 다른 순서매김을 사용할 필요가 있다면 Comparator 인터페이스를 대신하여 사용할수 있다.</li>
+  <li>compareTo 가 음수를 리턴할수는 있지만 -2^31 ~ 2^31-1 범위 안에 값을 리턴해야한다! (오버 플로우가 날 경우 엉뚱한 결과가 나올수 있다.)</li>
+</ul>
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2014/effective-java-2/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+    	<div class="post-related">
+			Related: <a href="/blog/2015/effective-java-5/">Effective Java 6장 열거형(enum)과 제네릭</a>
+        </div>
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2014/effective-java-2/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>

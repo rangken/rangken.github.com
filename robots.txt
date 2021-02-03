@@ -1,0 +1,2 @@
+User-agent: * 
+Sitemap: http://rangken.github.io/sitemap.xml

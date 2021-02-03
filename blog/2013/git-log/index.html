@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Git log</title>
+    <!-- SEO -->
+    <meta name="description" content="git log option">
+    <meta name="keywords" content="Git, ETC"/>
+    <meta name="author" content="Young.k">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://rangken.github.io/blog/2013/git-log/">
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=873345849376888&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Google analytics -->
+    <script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  		ga('create', 'UA-58142397-1', 'auto');
+  		ga('send', 'pageview');
+    </script>
+    <script data-ad-client="ca-pub-9512351571435208" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <img style="float: left" src="/img/jaeyoung.png" />
+    <a class="site-title" href="/">
+      <div style="float: left; margin-left: 30px;">YOUNG.K<div>
+    </a>
+    <div style="float: left; width:500px;">
+      <a style="float: left;" class="post-link" href="http://rangken.gitbooks.io/nextersstudy1/content/">
+        <h4 style="color:#ffffff;"> Study </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://nexters.github.io/Node-Study/">
+        <h4 style="color:#ffffff;"> Node.js </h4>
+      </a>
+      <a style="float: left; margin-left: 10px;" class="post-link" href="http://rangken.gitbooks.io/javastudy/content/index.html">
+        <h4 style="color:#ffffff;"> Effective-Java </h4>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Git log</h1>
+    <p class="post-meta">May 8, 2013
+      
+	 </p>
+  </header>
+
+  <article class="post-content">
+    <p><img src="/assets/images/gitlog2.png" alt="GitLog" />
+&lt; 기본 로그 &gt;
+<img src="/assets/images/gitlog1.png" alt="GitLog" />
+&lt; 로그 커스터 마이징 &gt;</p>
+
+<h1 id="git-log">Git Log</h1>
+<p>Git 을 잘 사용하기 위해서는 git log 를 통해 로그를 보고 상황에 따라 git 을 사용해여야 한다. 
+git log 는 현재 브랜치에서의 커밋 로그들을 보여준다. 어떤 로그들이 추가 됬으며 어떤 브랜치에서 Merge 가 되었는지 등등 정보를 가지고 있다. 
+하지만 기본 git log 를 사용할 경우 40글자의 커밋 해쉬 태크와 날짜 메세지 등등을 보여준다. 
+하지만 개인적으로 기본 log 들은 눈에 한번에 들어오지 않는다. 여러 git log 의 옵션들을 사용해 git log 에서 원하는 정보를 얻을수 있다.</p>
+
+<h1 id="git-log-option">Git Log Option</h1>
+
+<p><code class="language-plaintext highlighter-rouge">git log -p 2 </code> - 로그를 2개만 출력한다.<br />
+<code class="language-plaintext highlighter-rouge">git log --graph </code> - 로그를 그래프 형식으로 출력한다. 브랜치 정보와 머지 정보를 보다 더 정확히 볼 수 있다.<br />
+<code class="language-plaintext highlighter-rouge">git log --pretty=oneline </code> - 한줄로만 로그를 간단히 출력한다.<br />
+<code class="language-plaintext highlighter-rouge">git log --abbrev-commit </code> - git log 는 기본적으로 40글자의 커밋 해쉬를 출력하지만 –abrev-commit로 해쉬를 축약해서 출력한다.<br />
+<code class="language-plaintext highlighter-rouge">git log --left-right </code> - git log develop..master 처럼 사용할 경우 두 브랜치 다른 다른 커밋 정보들을 보여준다. –left-right 옵션을 사용할경우 &gt; , &lt; 를 사용해 develop(&lt;) 에서의 commit 인지 master(&gt;) 에서의 commit 인지 구분할수 있도록 한다. git log 를 통해 브랜치 로그를 비교할때 … 점3개 를 사용할 경우에는 서로 다른 모든 커밋을 보여준다.<br />
+<code class="language-plaintext highlighter-rouge">git merge-base develop master </code> - develop 과 master 에 공통된 커밋을 알려준다. merge를 수행할 경우 해당 명령어로 확인후 상황에 따라 merge 수행 하는 것이 좋다.<br /></p>
+
+<h1 id="git-log-alias">Git Log alias</h1>
+<p>git log 는 매우 빈번하게 많이 사용하는 명령어 이다. 매번 여러 옵션들을 기억해서 사용하기란 쉽지 않다. 그래서 자기자신에 맞게 git log 를 커스터 마이징 해서 사용하는 것이 좋다.
+<code class="language-plaintext highlighter-rouge">git config --global alias</code> 명령어를 통해 git log 처럼 작동하는 명령어를 만들 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="p">.</span><span class="n">lg</span> <span class="s">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --left-right "</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>git config 를 통해 <code class="language-plaintext highlighter-rouge">git lg</code> 라는 명령어를 새로 만들었다. 
+git lg 를 사용해서 로그를 출력하면 위의 그림처럼 log 들이 바뀐것을 확인할수 있다.</p>
+
+<h1 id="reference">Reference</h1>
+<p><a href="https://coderwall.com/p/euwpig">Filipe Kiss</a></p>
+
+  </article>
+
+  <!-- Twitter -->
+<span class="post-sharing">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</span>
+
+
+
+<!-- Reddit -->
+<span class="post-sharing" style="margin-right: 32px">
+  <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
+</span>
+<!-- Facebook -->
+<span class="post-sharing">
+  <div class="fb-share-button" data-href="http://rangken.github.io/blog/2013/git-log/" data-layout="button" style="width: 70px;"></div>
+</span>
+
+
+  <div>
+		
+
+    
+
+    
+    	<div class="post-related">
+			Related: <a href="/blog/2013/git-rebase-merge/">Git Rebase Merge</a>
+        </div>
+    
+</div>
+
+  <div class="fb-comments" data-href="http://rangken.github.io/blog/2013/git-log/" data-numposts="5" data-colorscheme="light" data-width="750"></div>
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Young.k</li>
+          <li><a href="mailto:rangken@gmail.com">rangken@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/rangken" target="_blank">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/rangken87" target="_blank">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">rangken87</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      <!-- footer desctiption <p class="text"></p> -->
+      Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> & <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+      </div>
+    </div>
+
+  </div>
+  <div id="fb-root"></div>
+</footer>
+
+
+  </body>
+
+</html>
